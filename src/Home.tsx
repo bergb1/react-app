@@ -4,12 +4,12 @@ interface Props {
   auth: (token: string) => void;
 }
 
-const Index = ({}: Props) => {
+const Home = ({}: Props) => {
   return (
     <>
-      <h1>Index</h1>
+      <h1>Home</h1>
     </>
   );
 };
 
-export default Index;
+export default Home;

@@ -1,5 +1,5 @@
 import "./App.css";
-import Index from "./Home";
+import Home from "./Home";
 import Auth from "./Auth";
 import Cookie from "./interfaces/cookie";
 import { useState } from "react";
@@ -10,7 +10,7 @@ const app = () => {
 
   const [auth, setAuth] = useState(cookie.token);
 
-  return <>{auth ? <Index auth={setAuth} /> : <Auth callback={setAuth} />}</>;
+  return <>{auth ? <Home auth={setAuth} /> : <Auth callback={setAuth} />}</>;
 };
 
 export default app;
