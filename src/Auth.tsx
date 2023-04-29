@@ -1,13 +1,21 @@
-import "./Auth.css"
+import { useState } from "react";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 interface Props {
   callback: (token: string) => void;
 }
 
-const Auth = ({}: Props) => {
+const Auth = ({ callback }: Props) => {
+  const [page, setPage] = useState("login");
+
   return (
     <>
-      <h1>Login</h1>
+      {page === "login" ? (
+        <Login auth={callback} setPage={setPage} />
+      ) : (
+        <Register switch={setPage} />
+      )}
     </>
   );
 };
