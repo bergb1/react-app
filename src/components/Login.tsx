@@ -1,3 +1,4 @@
+import { userLogin } from "../request/userRequests";
 import "./Login.css";
 
 interface Props {
@@ -5,18 +6,19 @@ interface Props {
   setPage: (page: string) => void;
 }
 
-const Login = ({}: Props) => {
+const Login = ({ setPage }: Props) => {
   return (
     <div className="background">
       <div className="login-window">
+        
         <form className="login-form">
           <div className="form-group">
-            <label htmlFor="emailInput">Email address</label>
+            <label htmlFor="usernameInput">Email address</label>
             <input
-              type="email"
+              type="username"
               className="form-control"
-              id="emailInput"
-              placeholder="Enter email"
+              id="usernameInput"
+              placeholder="Enter Username"
             />
           </div>
           <div className="form-group">
@@ -28,15 +30,33 @@ const Login = ({}: Props) => {
               placeholder="Enter Password"
             />
           </div>
-          <div>
-            <button className="btn btn-primary">
-              Login
-            </button>
-            <button className="btn btn-secondary">
-              Register
-            </button>
-          </div>
         </form>
+
+        <button
+          className="btn btn-primary"
+          onClick={async () => {
+            const credentials = {
+              username: (
+                document.getElementById("usernameInput") as HTMLInputElement
+              ).value,
+              password: (
+                document.getElementById("passwordInput") as HTMLInputElement
+              ).value,
+            };
+
+            console.log(await userLogin(credentials));
+          }}
+        >
+          Login
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={() => {
+            setPage("register");
+          }}
+        >
+          Register
+        </button>
       </div>
     </div>
   );
