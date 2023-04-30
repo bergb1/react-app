@@ -1,4 +1,5 @@
-import { userLogin } from "../request/userRequests";
+import { setCookie } from "../App";
+import { userLogin } from "./request/userRequests";
 import "./Login.css";
 
 interface Props {
@@ -6,11 +7,11 @@ interface Props {
   setPage: (page: string) => void;
 }
 
-const Login = ({ setPage }: Props) => {
+const Login = ({ auth, setPage }: Props) => {
   return (
     <div className="background">
       <div className="login-window">
-        
+        {/* Form for filling in logging information */}
         <form className="login-form">
           <div className="form-group">
             <label htmlFor="usernameInput">Email address</label>
@@ -32,6 +33,7 @@ const Login = ({ setPage }: Props) => {
           </div>
         </form>
 
+        {/* Button for logging in */}
         <button
           className="btn btn-primary"
           onClick={async () => {
@@ -44,11 +46,22 @@ const Login = ({ setPage }: Props) => {
               ).value,
             };
 
-            console.log(await userLogin(credentials));
+            // Try and perform the log in
+            try {
+              const response = await userLogin(credentials);
+              if (response.token) {
+                setCookie("token", response.token);
+                auth(response.token);
+              }
+            } catch (err) {
+              console.log((err as Error).message);
+            }
           }}
         >
           Login
         </button>
+
+        {/* Button for going to the register page */}
         <button
           className="btn btn-secondary"
           onClick={() => {

@@ -1,4 +1,4 @@
 export default interface GraphQLResponse {
-  data: Object;
+  data: any;
   errors: { message: string }[];
 }
