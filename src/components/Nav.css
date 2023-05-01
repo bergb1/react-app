@@ -1,17 +1,76 @@
+.nav-bar {
+  height: 100px;
+  background-color: #1E1E1E;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
 .website-logo {
-    cursor: pointer;
-    border-radius: 5%;
+  height: 100%;
+  width: fit-content;
+  cursor: pointer;
+  float: left;
+}
+
+.website-logo-image {
+  position: relative;
+  height: 100%;
+  float: left;
+  border-radius: 20%;
+  background-color: #F3F3F3;
 }
 
 .website-title {
-    cursor: pointer;
+  font-size: 36px;
+  position: relative;
+  margin-left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  float: left;
+  color: #F3F3F3;
+}
+
+.user {
+  height: 100%;
+  width: fit-content;
+  cursor: pointer;
+  float: right;
+}
+
+.user-name {
+  font-size: 36px;
+  position: relative;
+  margin: 0px;
+  margin-right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  float: right;
+  color: #F3F3F3;
 }
 
 .user-profile {
-    cursor: pointer;
-    border-radius: 50%;
+  position: relative;
+  height: 100%;
+  border-radius: 50%;
+  float: right;
+  background-color: #F3F3F3;
 }
 
 .user-logout {
-    cursor: pointer;
+  height: 100%;
+  cursor: pointer;
+  float: right;
+}
+
+.logout {
+  font-size: large;
+  margin-right: 25px;
+  padding: 2px 5px 2px 5px;
+  border: solid 2px #F3F3F3;
+  border-radius: 10%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  float: right;
+  color: #F3F3F3;
 }

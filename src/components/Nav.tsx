@@ -12,7 +12,7 @@ interface Props {
 // Component
 const Nav = ({ setPage, setToken, user }: Props) => {
   return (
-    <div className="nav-bar">
+    <nav className="nav-bar">
       {/* Website logo and index page */}
       <div
         className="website-logo"
@@ -20,17 +20,8 @@ const Nav = ({ setPage, setToken, user }: Props) => {
           setPage("index");
         }}
       >
-        <img src="soundbuds-icon.png" />
-      </div>
-
-      {/* Website title */}
-      <div
-        className="website-title"
-        onClick={() => {
-          setPage("index");
-        }}
-      >
-        <h1>Soundbuds</h1>
+        <img className="website-logo-image" src="soundbuds-icon.png" />
+        <p className="website-title">Soundbuds</p>
       </div>
 
       {/* User */}
@@ -40,26 +31,30 @@ const Nav = ({ setPage, setToken, user }: Props) => {
           setPage("user");
         }}
       >
-        <p className="user-name">
-          {user.nickname ? user.nickname : user.username}
-        </p>
+        {/* Profile */}
         <img
           className="user-profile"
           src="profile-placeholder.png"
           alt="Profile"
         />
-        <div
-          className="user-logout"
-          onClick={() => {
-            setCookie("token", "");
-            setToken("");
-          }}
-        >
-          <p className="logout">Logout</p>
-          <span className="material-symbols-outlined">logout</span>
-        </div>
+
+        {/* Username */}
+        <p className="user-name">
+          {user.nickname ? user.nickname : user.username}
+        </p>
       </div>
-    </div>
+
+      {/* Logout */}
+      <div
+        className="user-logout"
+        onClick={() => {
+          setCookie("token", "");
+          setToken("");
+        }}
+      >
+        <p className="logout">Logout</p>
+      </div>
+    </nav>
   );
 };
 
