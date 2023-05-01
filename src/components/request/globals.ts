@@ -1,6 +1,6 @@
 import GraphQLResponse from "../interfaces/GraphQLResponse";
 
-const url = "http://localhost:3000/graphql";
+const url = "https://soundbuds.azurewebsites.net/graphql";
 
 // Function to setup graphql fetch request
 const setupFetch = (

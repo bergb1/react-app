@@ -13,7 +13,7 @@ const Register = ({ setPage }: Props) => {
           <div className="form-group">
             <label htmlFor="usernameInput">Username</label>
             <input
-              type="username"
+              type="text"
               className="form-control"
               id="usernameInput"
               placeholder="Enter Username"
@@ -22,7 +22,7 @@ const Register = ({ setPage }: Props) => {
           <div className="form-group">
             <label htmlFor="emailInput">Email address</label>
             <input
-              type="email"
+              type="text"
               className="form-control"
               id="emailInput"
               placeholder="Enter Email"

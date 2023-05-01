@@ -15,7 +15,7 @@ const Login = ({ auth, setPage }: Props) => {
           <div className="form-group">
             <label htmlFor="usernameInput">Username</label>
             <input
-              type="username"
+              type="text"
               className="form-control"
               id="usernameInput"
               placeholder="Enter Username"
