@@ -31,15 +31,17 @@ const app = () => {
     }
 
     // Get the user if there is a token
-    if (token && !user.username) {
+    if (token) {
       getUser();
+    } else {
+      setUser(userPlaceholder);
     }
   }, [token]);
 
   // Redirection
   return token ? (
     user.username ? (
-      <Index user={user} />
+      <Index user={user} setToken={setToken} />
     ) : (
       <></>
     )

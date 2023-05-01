@@ -1,0 +1,17 @@
+.website-logo {
+    cursor: pointer;
+    border-radius: 5%;
+}
+
+.website-title {
+    cursor: pointer;
+}
+
+.user-profile {
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.user-logout {
+    cursor: pointer;
+}

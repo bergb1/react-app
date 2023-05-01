@@ -1,15 +1,21 @@
+import { useState } from "react";
+import Nav from "./components/Nav";
 import { UserWebsite } from "./components/interfaces/User";
 
 // Component Properties
 interface Props {
+  setToken: (page: string) => void;
   user: UserWebsite;
 }
 
 // Component
-const Index = ({ user }: Props) => {
+const Index = ({ user, setToken }: Props) => {
+  // State hook for updating
+  const [page, setPage] = useState("index");
+
   return (
     <>
-      <h1>{user.nickname ? user.nickname : user.username}</h1>
+      <Nav user={user} setPage={setPage} setToken={setToken}/>
     </>
   );
 };
