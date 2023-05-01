@@ -1,61 +1,51 @@
-import "./App.css";
-import Home from "./Home";
 import Auth from "./Auth";
 import { useState, useEffect } from "react";
 import { userByToken } from "./components/request/userRequests";
 import { UserWebsite } from "./components/interfaces/User";
-
-// Cookie setter
-function setCookie(cname: string, cvalue: string) {
-  document.cookie = cname + "=" + cvalue + "; SameSite=Strict";
-}
-
-// Cookie getter
-function getCookie(cname: string) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+import Index from "./Index";
+import { getCookie } from "./components/functions/cookies";
 
 // User placeholder
 const userPlaceholder: UserWebsite = {
-  username: '',
-  nickname: '',
-  profile_color: ''
-}
+  username: "",
+  nickname: "",
+  profile_color: "",
+};
 
-// Main application
 const app = () => {
+  // State hooks for updating
   const [token, setToken] = useState(getCookie("token"));
   const [user, setUser] = useState(userPlaceholder);
 
-  console.log(token);
-  console.log(user);
-
+  // Effect hook for async features
   useEffect(() => {
     async function getUser() {
       const user = await userByToken(token);
-      setUser(user);
+
+      // Handle the api response
+      if (!user) {
+        setToken("");
+      } else {
+        setUser(user);
+      }
     }
 
-    if (!user.username) {
+    // Get the user if there is a token
+    if (token && !user.username) {
       getUser();
     }
-  }, []);
+  }, [token]);
 
-  return <>{user.username ? <Home user={user} /> : <Auth setToken={setToken} />}</>;
+  // Redirection
+  return token ? (
+    user.username ? (
+      <Index user={user} />
+    ) : (
+      <></>
+    )
+  ) : (
+    <Auth setToken={setToken} />
+  );
 };
 
 export default app;
-
-export { setCookie };

@@ -1,11 +1,12 @@
-import "./Home.css";
 import { UserWebsite } from "./components/interfaces/User";
 
+// Component Properties
 interface Props {
-  user: UserWebsite
+  user: UserWebsite;
 }
 
-const Home = ({ user }: Props) => {
+// Component
+const Index = ({ user }: Props) => {
   return (
     <>
       <h1>{user.nickname ? user.nickname : user.username}</h1>
@@ -13,4 +14,4 @@ const Home = ({ user }: Props) => {
   );
 };
 
-export default Home;
+export default Index;

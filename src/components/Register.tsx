@@ -1,9 +1,11 @@
 import { register } from "./handles/RegisterHandles";
 
+// Component properties
 interface Props {
   setPage: (page: string) => void;
 }
 
+// Component
 const Register = ({ setPage }: Props) => {
   return (
     <div className="background">

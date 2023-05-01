@@ -1,4 +1,4 @@
-import { setCookie } from "../../App";
+import { setCookie } from "../functions/cookies";
 import { UserLogin } from "../interfaces/User";
 import { userLogin } from "../request/userRequests";
 
