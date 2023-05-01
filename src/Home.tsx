@@ -1,13 +1,14 @@
 import "./Home.css";
+import { UserWebsite } from "./components/interfaces/User";
 
 interface Props {
-  auth: (token: string) => void;
+  user: UserWebsite
 }
 
-const Home = ({}: Props) => {
+const Home = ({ user }: Props) => {
   return (
     <>
-      <h1>Home</h1>
+      <h1>{user.nickname ? user.nickname : user.username}</h1>
     </>
   );
 };

@@ -3,16 +3,16 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 interface Props {
-  callback: (token: string) => void;
+  setToken: (token: string) => void;
 }
 
-const Auth = ({ callback }: Props) => {
+const Auth = ({ setToken }: Props) => {
   const [page, setPage] = useState("login");
 
   return (
     <>
       {page === "login" ? (
-        <Login auth={callback} setPage={setPage} />
+        <Login setToken={setToken} setPage={setPage} />
       ) : (
         <Register setPage={setPage} />
       )}

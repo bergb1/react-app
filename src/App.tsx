@@ -1,7 +1,9 @@
 import "./App.css";
 import Home from "./Home";
 import Auth from "./Auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { userByToken } from "./components/request/userRequests";
+import { UserWebsite } from "./components/interfaces/User";
 
 // Cookie setter
 function setCookie(cname: string, cvalue: string) {
@@ -25,12 +27,33 @@ function getCookie(cname: string) {
   return "";
 }
 
+// User placeholder
+const userPlaceholder: UserWebsite = {
+  username: '',
+  nickname: '',
+  profile_color: ''
+}
+
 // Main application
 const app = () => {
-  const token = getCookie("token");
-  const [auth, setAuth] = useState(token);
+  const [token, setToken] = useState(getCookie("token"));
+  const [user, setUser] = useState(userPlaceholder);
 
-  return <>{auth ? <Home auth={setAuth} /> : <Auth callback={setAuth} />}</>;
+  console.log(token);
+  console.log(user);
+
+  useEffect(() => {
+    async function getUser() {
+      const user = await userByToken(token);
+      setUser(user);
+    }
+
+    if (!user.username) {
+      getUser();
+    }
+  }, []);
+
+  return <>{user.username ? <Home user={user} /> : <Auth setToken={setToken} />}</>;
 };
 
 export default app;

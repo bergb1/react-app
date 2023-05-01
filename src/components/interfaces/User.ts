@@ -18,4 +18,10 @@ interface UserRegister {
   password: string;
 }
 
-export type { User, UserLogin, UserRegister };
+interface UserWebsite {
+  username: string;
+  nickname?: string;
+  profile_color: string;
+}
+
+export type { User, UserLogin, UserRegister, UserWebsite };

@@ -2,11 +2,11 @@ import "./Login.css";
 import { login } from "./handles/LoginHandles";
 
 interface Props {
-  auth: (token: string) => void;
+  setToken: (token: string) => void;
   setPage: (page: string) => void;
 }
 
-const Login = ({ auth, setPage }: Props) => {
+const Login = ({ setToken, setPage }: Props) => {
   return (
     <div className="background">
       <div className="login-window">
@@ -46,7 +46,7 @@ const Login = ({ auth, setPage }: Props) => {
         <button
           className="btn btn-primary"
           onClick={async () => {
-            await login(auth, {
+            await login(setToken, {
               username: (
                 document.getElementById("usernameInput") as HTMLInputElement
               ).value,

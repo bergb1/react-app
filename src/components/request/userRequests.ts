@@ -1,5 +1,5 @@
 import TokenMessageResponse from "../interfaces/TokenMessageResponse";
-import { UserLogin, UserRegister } from "../interfaces/User";
+import { User, UserLogin, UserRegister } from "../interfaces/User";
 import { handleFetch, setupFetch, url } from "./globals";
 
 // Request to login a user
@@ -25,7 +25,7 @@ const userLogin = async (user: UserLogin): Promise<TokenMessageResponse> => {
   };
 
   // Process the request
-  return await fetch(url, setupFetch(query, variables)).then(
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
     async (response) => {
       return (await handleFetch(response)).login as TokenMessageResponse;
     }
@@ -44,8 +44,7 @@ const userRegister = async (
         _id
       }
     }
-  }
-  `;
+  }`;
 
   // Define the query variables
   const variables = {
@@ -53,11 +52,30 @@ const userRegister = async (
   };
 
   // Process the request
-  return await fetch(url, setupFetch(query, variables)).then(
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
     async (response) => {
       return (await handleFetch(response)).register as TokenMessageResponse;
     }
   );
 };
 
-export { userLogin, userRegister };
+// Request to get the logged in user
+const userByToken = async (token: string): Promise<User> => {
+  // Define the query
+  const query = `query UserFromToken {
+    userFromToken {
+      _id
+      username
+      email
+      nickname
+      profile_color
+    }
+  }`;
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token)).then(async (response) => {
+    return (await handleFetch(response)).userFromToken as User;
+  });
+};
+
+export { userLogin, userRegister, userByToken };
