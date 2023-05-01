@@ -3,9 +3,7 @@ import { UserLogin, UserRegister } from "../interfaces/User";
 import { handleFetch, setupFetch, url } from "./globals";
 
 // Request to login a user
-const userLogin = async (
-  user: UserLogin
-): Promise<TokenMessageResponse> => {
+const userLogin = async (user: UserLogin): Promise<TokenMessageResponse> => {
   // Define the query
   const query = `mutation Login($credentials: Credentials!) {
     login(credentials: $credentials) {
@@ -14,6 +12,7 @@ const userLogin = async (
       user {
         _id
         username
+        email
         nickname
         profile_color
       }
@@ -34,14 +33,14 @@ const userLogin = async (
 };
 
 // Request to register a user
-const userRegister = async (user: UserRegister): Promise<TokenMessageResponse> => {
+const userRegister = async (
+  user: UserRegister
+): Promise<TokenMessageResponse> => {
   // Define the query
   const query = `mutation Register($user: UserInput!) {
     register(user: $user) {
-      token
       message
       user {
-        username
         _id
       }
     }
