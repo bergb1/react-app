@@ -7,10 +7,15 @@ interface User {
   favorite_album?: any;
 }
 
-interface UserInput {
+interface UserLogin {
+  username: string;
+  password: string;
+}
+
+interface UserRegister {
   username: string;
   email: string;
   password: string;
 }
 
-export type { User, UserInput };
+export type { User, UserLogin, UserRegister };

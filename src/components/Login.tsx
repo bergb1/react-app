@@ -1,6 +1,5 @@
-import { setCookie } from "../App";
-import { userLogin } from "./request/userRequests";
 import "./Login.css";
+import { login } from "./handles/LoginHandles";
 
 interface Props {
   auth: (token: string) => void;
@@ -11,10 +10,10 @@ const Login = ({ auth, setPage }: Props) => {
   return (
     <div className="background">
       <div className="login-window">
-        {/* Form for filling in logging information */}
+        {/* Form for filling in login information */}
         <form className="login-form">
           <div className="form-group">
-            <label htmlFor="usernameInput">Email address</label>
+            <label htmlFor="usernameInput">Username</label>
             <input
               type="username"
               className="form-control"
@@ -33,34 +32,6 @@ const Login = ({ auth, setPage }: Props) => {
           </div>
         </form>
 
-        {/* Button for logging in */}
-        <button
-          className="btn btn-primary"
-          onClick={async () => {
-            const credentials = {
-              username: (
-                document.getElementById("usernameInput") as HTMLInputElement
-              ).value,
-              password: (
-                document.getElementById("passwordInput") as HTMLInputElement
-              ).value,
-            };
-
-            // Try and perform the log in
-            try {
-              const response = await userLogin(credentials);
-              if (response.token) {
-                setCookie("token", response.token);
-                auth(response.token);
-              }
-            } catch (err) {
-              console.log((err as Error).message);
-            }
-          }}
-        >
-          Login
-        </button>
-
         {/* Button for going to the register page */}
         <button
           className="btn btn-secondary"
@@ -69,6 +40,23 @@ const Login = ({ auth, setPage }: Props) => {
           }}
         >
           Register
+        </button>
+
+        {/* Button for logging in */}
+        <button
+          className="btn btn-primary"
+          onClick={async () => {
+            await login(auth, {
+              username: (
+                document.getElementById("usernameInput") as HTMLInputElement
+              ).value,
+              password: (
+                document.getElementById("passwordInput") as HTMLInputElement
+              ).value,
+            });
+          }}
+        >
+          Login
         </button>
       </div>
     </div>

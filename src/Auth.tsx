@@ -14,7 +14,7 @@ const Auth = ({ callback }: Props) => {
       {page === "login" ? (
         <Login auth={callback} setPage={setPage} />
       ) : (
-        <Register switch={setPage} />
+        <Register setPage={setPage} />
       )}
     </>
   );

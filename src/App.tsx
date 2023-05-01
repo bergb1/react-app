@@ -28,7 +28,6 @@ function getCookie(cname: string) {
 // Main application
 const app = () => {
   const token = getCookie("token");
-  console.log(token);
   const [auth, setAuth] = useState(token);
 
   return <>{auth ? <Home auth={setAuth} /> : <Auth callback={setAuth} />}</>;

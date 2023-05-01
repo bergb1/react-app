@@ -1,47 +1,10 @@
-import Credentials from "../interfaces/Credentials";
-import GraphQLResponse from "../interfaces/GraphQLResponse";
 import TokenMessageResponse from "../interfaces/TokenMessageResponse";
-import { UserInput } from "../interfaces/User";
-import { url } from "./globals";
-
-// Function to setup graphql fetch request
-const setupFetch = (
-  query: string,
-  variables?: any,
-  token?: string
-): RequestInit => {
-  return {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token as string,
-    },
-    body: JSON.stringify({
-      query: query,
-      variables: variables,
-    }),
-  };
-};
-
-// Function to handle a fetch response
-const handleFetch = async (response: Response): Promise<any> => {
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
-
-  // Handle the graphql response
-  const resp = (await response.json()) as GraphQLResponse;
-  if (resp.errors) {
-    throw new Error(resp.errors[0].message);
-  } else {
-    return resp.data;
-  }
-};
+import { UserLogin, UserRegister } from "../interfaces/User";
+import { handleFetch, setupFetch, url } from "./globals";
 
 // Request to login a user
 const userLogin = async (
-  credentials: Credentials
+  user: UserLogin
 ): Promise<TokenMessageResponse> => {
   // Define the query
   const query = `mutation Login($credentials: Credentials!) {
@@ -59,7 +22,7 @@ const userLogin = async (
 
   // Define the query variables
   const variables = {
-    credentials: credentials,
+    credentials: user,
   };
 
   // Process the request
@@ -71,7 +34,7 @@ const userLogin = async (
 };
 
 // Request to register a user
-const userRegister = async (user: UserInput): Promise<TokenMessageResponse> => {
+const userRegister = async (user: UserRegister): Promise<TokenMessageResponse> => {
   // Define the query
   const query = `mutation Register($user: UserInput!) {
     register(user: $user) {
