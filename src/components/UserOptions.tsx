@@ -37,8 +37,6 @@ const UserOptions = ({ setEditing, editing, token, user, userView }: Props) => {
     }
   }),
     [role, following];
-  
-  console.log(role);
 
   return (
     <div className="user-options">
