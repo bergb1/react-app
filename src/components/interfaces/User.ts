@@ -1,11 +1,15 @@
+import { Album } from "./Album";
+import { Song } from "./Song";
+
 interface User {
+  _id: string;
   username: string;
   email: string;
-  nickname?: string;
   profile?: string;
+  nickname?: string;
   profile_color: string;
-  favorite_song?: any;
-  favorite_album?: any;
+  favorite_song?: Song;
+  favorite_album?: Album;
 }
 
 interface UserLogin {
@@ -20,6 +24,7 @@ interface UserRegister {
 }
 
 interface UserWebsite {
+  _id: string;
   username: string;
   profile?: string;
   nickname?: string;

@@ -1,60 +1,65 @@
+import { userPlaceholder } from "../Index";
 import "./Nav.css";
 import { setCookie } from "./functions/cookies";
-import { UserWebsite } from "./interfaces/User";
+import { setUser } from "./handles/IndexHandles";
+import { User, UserWebsite } from "./interfaces/User";
 
 // Component properties
 interface Props {
-  setPage: (page: string) => void;
+  setUserView: (user: User) => void;
   setToken: (token: string) => void;
   user: UserWebsite;
 }
 
 // Component
-const Nav = ({ setPage, setToken, user }: Props) => {
+const Nav = ({ setUserView, setToken, user }: Props) => {
   return (
-    <nav className="nav-bar">
-      {/* Website logo and index page */}
-      <div
-        className="website-logo"
-        onClick={() => {
-          setPage("index");
-        }}
-      >
-        <img className="website-logo-image" src="soundbuds-icon.png" />
-        <p className="website-title">Soundbuds</p>
-      </div>
+    <>
+      <div className="nav-block"></div>
+      <nav className="nav-bar">
+        {/* Website logo and index page */}
+        <div
+          className="website-logo"
+          onClick={() => {
+            setUserView(userPlaceholder);
+          }}
+        >
+          <img className="website-logo-image" src="soundbuds-icon.png" />
+          <p className="website-title">Soundbuds</p>
+        </div>
 
-      {/* User */}
-      <div
-        className="user"
-        onClick={() => {
-          setPage("user");
-        }}
-      >
-        {/* Profile */}
-        <img
-          className="user-profile"
-          src="profile-placeholder.png"
-          alt="Profile"
-        />
+        {/* User */}
+        <div
+          className="user"
+          onClick={() => {
+            setUser(setUserView, user._id);
+          }}
+        >
+          {/* Profile */}
+          <img
+            className="user-profile"
+            src="profile-placeholder.png"
+            alt="Profile"
+          />
 
-        {/* Username */}
-        <p className="user-name">
-          {user.nickname ? user.nickname : user.username}
-        </p>
-      </div>
+          {/* Username */}
+          <p className="user-name">
+            {user.nickname ? user.nickname : user.username}
+          </p>
+        </div>
 
-      {/* Logout */}
-      <div
-        className="user-logout"
-        onClick={() => {
-          setCookie("token", "");
-          setToken("");
-        }}
-      >
-        <p className="logout">Logout</p>
-      </div>
-    </nav>
+        {/* Logout */}
+        <div
+          className="user-logout"
+          onClick={() => {
+            setCookie("token", "");
+            setToken("");
+          }}
+        >
+          <p className="logout">Logout</p>
+        </div>
+      </nav>
+    </>
   );
 };
 

@@ -5,10 +5,9 @@ const register = async (
   setPage: (page: string) => void,
   user: UserRegister
 ) => {
-
   try {
     const resp = await userRegister(user);
-    if (resp) console.log("user created");
+    if (!resp) throw new Error("user not created");
     setPage("login");
   } catch (err) {
     console.log((err as Error).message);

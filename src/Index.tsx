@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Nav from "./components/Nav";
-import { UserWebsite } from "./components/interfaces/User";
+import { User, UserWebsite } from "./components/interfaces/User";
 
 // Component Properties
 interface Props {
@@ -8,16 +8,27 @@ interface Props {
   user: UserWebsite;
 }
 
+// User placeholder
+const userPlaceholder: User = {
+  _id: "",
+  username: "",
+  email: "",
+  profile_color: ""
+};
+
 // Component
 const Index = ({ user, setToken }: Props) => {
   // State hook for updating
-  const [page, setPage] = useState("index");
+  const [userView, setUserView] = useState(userPlaceholder);
+  console.log(userView);
 
   return (
     <>
-      <Nav user={user} setPage={setPage} setToken={setToken}/>
+      <Nav user={user} setUserView={setUserView} setToken={setToken}/>
     </>
   );
 };
 
 export default Index;
+
+export { userPlaceholder };

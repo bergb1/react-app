@@ -59,6 +59,54 @@ const userRegister = async (
   );
 };
 
+// Request to get a user by id
+const userById = async (_id: string): Promise<User> => {
+  // Define the query
+  const query = `query User($id: ID!) {
+    user(_id: $id) {
+      _id
+      username
+      email
+      profile
+      nickname
+      profile_color
+      favorite_song {
+        name
+        cover
+        description
+        creator {
+          username
+          nickname
+        }
+        album {
+          cover
+        }
+      }
+      favorite_album {
+        cover
+        description
+        creator {
+          username
+          nickname
+        }
+        name
+      }
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    id: _id,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).user as User;
+    }
+  );
+};
+
 // Request to get the logged in user
 const userByToken = async (token: string): Promise<User> => {
   // Define the query
@@ -78,4 +126,4 @@ const userByToken = async (token: string): Promise<User> => {
   });
 };
 
-export { userLogin, userRegister, userByToken };
+export { userLogin, userRegister, userById, userByToken };
