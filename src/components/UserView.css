@@ -1,0 +1,54 @@
+.user-view {
+  position: relative;
+  float: right;
+  height: fit-content;
+  width: calc(50% - 100px);
+  margin: 50px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.user-view-header {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.user-view-header-user {
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+}
+
+.user-view-profile {
+  position: relative;
+  float: left;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #f3f3f3;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+.user-view-username {
+  position: relative;
+  float: left;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10px;
+  font-size: 24px;
+}
+
+.user-view-body {
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  background-color: #191e29;
+}
+
+.user-view-header-spacing {
+  height: 20px;
+}

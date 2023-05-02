@@ -1,6 +1,8 @@
+import "./Index.css";
 import { useState } from "react";
 import Nav from "./components/Nav";
 import { User, UserWebsite } from "./components/interfaces/User";
+import UserView from "./components/UserView";
 
 // Component Properties
 interface Props {
@@ -25,6 +27,10 @@ const Index = ({ user, setToken }: Props) => {
   return (
     <>
       <Nav user={user} setUserView={setUserView} setToken={setToken}/>
+      <div className="body">
+        <UserView setUserView={setUserView} user={userView} />
+        <div className="posts-view">Posts</div>
+      </div>
     </>
   );
 };

@@ -22,7 +22,7 @@
   float: left;
   border-radius: 20%;
   background-color: #f3f3f3;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
 
 .website-title {
@@ -59,7 +59,7 @@
   border-radius: 50%;
   float: right;
   background-color: #f3f3f3;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
 
 .user-logout {
