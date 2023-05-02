@@ -49,6 +49,12 @@
   background-color: #191e29;
 }
 
-.user-view-header-spacing {
+.user-view-big-spacing {
   height: 20px;
+  background-color: #191e29;
+}
+
+.user-view-small-spacing {
+  height: 5px;
+  background-color: #191e29;
 }

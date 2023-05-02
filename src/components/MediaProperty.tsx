@@ -1,3 +1,5 @@
+import "./MediaProperty.css";
+
 // Component properties
 interface Props {
   name: string;
@@ -19,7 +21,7 @@ const MediaProperty = ({ name, value, info }: Props) => {
       </div>
       <div className="media-property-body">
         <img className="media-property-cover" src="music-placeholder.png" />
-        <p className="media-property-cover">{info}</p>
+        <p className="media-property-info">{info}</p>
       </div>
     </div>
   );
