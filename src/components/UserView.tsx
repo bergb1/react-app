@@ -1,48 +1,54 @@
 import MediaProperty from "./MediaProperty";
 import Property from "./Property";
+import UserOptions from "./UserOptions";
 import "./UserView.css";
-import { User } from "./interfaces/User";
+import { User, UserWebsite } from "./interfaces/User";
 
 // Component properties
 interface Props {
-  setUserView: (user: User) => void;
-  user: User;
+  user: UserWebsite;
+  userView: User;
 }
 
 // Component
-const UserView = ({ user }: Props) => {
+const UserView = ({ user, userView }: Props) => {
   return (
     <div className="user-view">
       <div
         className="user-view-header"
-        style={{ backgroundColor: user.profile_color }}
+        style={{ backgroundColor: userView.profile_color }}
       >
         <div className="user-view-header-user">
           <img className="user-view-profile" src="profile-placeholder.png" />
           <p className="user-view-username">
-            {user.nickname ? user.nickname : user.username}
+            {userView.nickname ? userView.nickname : userView.username}
           </p>
         </div>
+        <UserOptions user={user} userView={userView} />
       </div>
       <div className="user-view-body">
         <div className="user-view-big-spacing" />
         <Property name="Followers" value="no_Followers" />
         <div className="user-view-small-spacing" />
         <Property name="Following" value="no_Following" />
-        {user.favorite_song || user.favorite_album ? (
+        {userView.favorite_song || userView.favorite_album ? (
           <div className="user-view-big-spacing" />
         ) : (
           <></>
         )}
-        {user.favorite_song ? (
+        {userView.favorite_song ? (
           <>
             <MediaProperty
               name="Favorite Song"
-              value={user.favorite_song.name}
-              cover={user.favorite_song.cover}
-              info={user.favorite_song.description}
+              value={userView.favorite_song.name}
+              cover={
+                userView.favorite_song.album
+                  ? userView.favorite_song.album.cover
+                  : userView.favorite_song.cover
+              }
+              info={userView.favorite_song.description}
             />
-            {user.favorite_song ? (
+            {userView.favorite_song ? (
               <div className="user-view-small-spacing" />
             ) : (
               <></>
@@ -51,12 +57,12 @@ const UserView = ({ user }: Props) => {
         ) : (
           <></>
         )}
-        {user.favorite_album ? (
+        {userView.favorite_album ? (
           <MediaProperty
             name="Favorite Album"
-            value={user.favorite_album.name}
-            cover={user.favorite_album.cover}
-            info={user.favorite_album.description}
+            value={userView.favorite_album.name}
+            cover={userView.favorite_album.cover}
+            info={userView.favorite_album.description}
           />
         ) : (
           <></>

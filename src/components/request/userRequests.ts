@@ -64,35 +64,22 @@ const userById = async (_id: string): Promise<User> => {
   // Define the query
   const query = `query User($id: ID!) {
     user(_id: $id) {
-      _id
       username
-      email
       profile
       nickname
       profile_color
       favorite_song {
-        _id
         name
         cover
         description
-        creator {
-          nickname
-          username
-        }
         album {
           cover
-          name
         }
       }
       favorite_album {
-        _id
         name
         cover
         description
-        creator {
-          nickname
-          username
-        }
       }
     }
   }`;
