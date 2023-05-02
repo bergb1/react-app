@@ -1,5 +1,5 @@
 import TokenMessageResponse from "../interfaces/TokenMessageResponse";
-import { User, UserLogin, UserRegister } from "../interfaces/User";
+import { User, UserLogin, UserModify, UserRegister } from "../interfaces/User";
 import { handleFetch, setupFetch, url } from "./globals";
 
 // Request to login a user
@@ -90,7 +90,7 @@ const userChangeRole = async (
 // Request to update a user
 const userUpdate = async (
   token: string,
-  user: User
+  user: UserModify
 ): Promise<TokenMessageResponse> => {
   // Define the query
   const query = `mutation UserChangeRole($user: UserModify!) {

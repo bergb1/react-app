@@ -42,7 +42,7 @@ const app = () => {
   // Redirection
   return token ? (
     user.username ? (
-      <Index user={user} token={token} setToken={setToken} />
+      <Index user={user} token={token} setToken={setToken} setUser={setUser}/>
     ) : (
       <></>
     )

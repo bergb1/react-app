@@ -2,21 +2,23 @@ import { useState, useEffect } from "react";
 import Property from "./Property";
 import UserOptions from "./UserOptions";
 import "./stylesheets/UserView.css";
-import { User, UserWebsite } from "./interfaces/User";
+import { User, UserModify, UserWebsite } from "./interfaces/User";
 import UserContent from "./UserContent";
 import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
 import { getRole } from "./handles/UserOptionsHandles";
+import { update } from "./handles/UserViewHandles";
 
 // Component properties
 interface Props {
   token: string;
   user: UserWebsite;
   userView: User;
+  setUserView: (user: User) => void;
 }
 
 // Component
-const UserView = ({ token, user, userView }: Props) => {
+const UserView = ({ token, user, userView, setUserView }: Props) => {
   const [role, setRole] = useState("user");
   const [editing, setEditing] = useState(false);
   useEffect(() => {
@@ -78,10 +80,12 @@ const UserView = ({ token, user, userView }: Props) => {
             className="save-input"
             style={{ backgroundColor: userView.profile_color }}
             onClick={() => {
-              let user = userView;
+              let user: UserModify = {};
               user.nickname = (
                 document.getElementById("nicknameInput") as HTMLInputElement
               ).value;
+
+              update(setUserView, setEditing, token, user);
             }}
           >
             Save Changes

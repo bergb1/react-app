@@ -31,4 +31,14 @@ interface UserWebsite {
   profile_color: string;
 }
 
-export type { User, UserLogin, UserRegister, UserWebsite };
+interface UserModify {
+  username?: string;
+  email?: string;
+  profile?: string;
+  nickname?: string;
+  profile_color?: string;
+  favorite_song?: string;
+  favorite_album?: string;
+}
+
+export type { User, UserLogin, UserRegister, UserWebsite, UserModify };
