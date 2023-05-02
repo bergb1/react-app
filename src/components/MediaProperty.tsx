@@ -4,8 +4,8 @@ import "./MediaProperty.css";
 interface Props {
   name: string;
   value: string;
-  cover: string;
-  info: string;
+  cover: string | undefined;
+  info: string | undefined;
 }
 
 // Component

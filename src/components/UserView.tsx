@@ -29,20 +29,38 @@ const UserView = ({ user }: Props) => {
         <Property name="Followers" value="no_Followers" />
         <div className="user-view-small-spacing" />
         <Property name="Following" value="no_Following" />
-        <div className="user-view-big-spacing" />
-        <MediaProperty
-          name="Favorite Song"
-          value="song_name"
-          cover=""
-          info="Information"
-        />
-        <div className="user-view-small-spacing" />
-        <MediaProperty
-          name="Favorite Album"
-          value="song_name"
-          cover=""
-          info="Information"
-        />
+        {user.favorite_song || user.favorite_album ? (
+          <div className="user-view-big-spacing" />
+        ) : (
+          <></>
+        )}
+        {user.favorite_song ? (
+          <>
+            <MediaProperty
+              name="Favorite Song"
+              value={user.favorite_song.name}
+              cover={user.favorite_song.cover}
+              info={user.favorite_song.description}
+            />
+            {user.favorite_song ? (
+              <div className="user-view-small-spacing" />
+            ) : (
+              <></>
+            )}
+          </>
+        ) : (
+          <></>
+        )}
+        {user.favorite_album ? (
+          <MediaProperty
+            name="Favorite Album"
+            value={user.favorite_album.name}
+            cover={user.favorite_album.cover}
+            info={user.favorite_album.description}
+          />
+        ) : (
+          <></>
+        )}
       </div>
       <div className="user-view-big-spacing" />
     </div>
