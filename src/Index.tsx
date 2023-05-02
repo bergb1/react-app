@@ -6,8 +6,8 @@ import UserView from "./components/UserView";
 
 // Component Properties
 interface Props {
-  user: UserWebsite;
   token: string;
+  user: UserWebsite;
   setToken: (page: string) => void;
 }
 
@@ -20,16 +20,15 @@ const userPlaceholder: User = {
 };
 
 // Component
-const Index = ({ user, setToken }: Props) => {
+const Index = ({ token, user, setToken }: Props) => {
   // State hook for updating
   const [userView, setUserView] = useState(userPlaceholder);
-  console.log(userView);
 
   return (
     <>
       <Nav user={user} setUserView={setUserView} setToken={setToken}/>
       <div className="body">
-        <UserView user={user} userView={userView}/>
+        <UserView token={token} user={user} userView={userView}/>
         <div className="posts-view">Posts</div>
       </div>
     </>

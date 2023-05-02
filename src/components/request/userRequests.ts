@@ -130,4 +130,22 @@ const userIsAdmin = async (token: string): Promise<boolean> => {
   });
 };
 
-export { userLogin, userRegister, userById, userByToken, userIsAdmin };
+// Request to check if the user is following another user
+const userIsFollowing = async (token: string, _id: string) => {
+  // Define the query
+  const query = `query Query($id: ID!) {
+    userIsFollowing(_id: $id)
+  }`;
+
+  // Define the query variables
+  const variables = {
+    id: _id,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(async (response) => {
+    return (await handleFetch(response)).userIsFollowing as boolean;
+  });
+};
+
+export { userLogin, userRegister, userById, userByToken, userIsAdmin, userIsFollowing };

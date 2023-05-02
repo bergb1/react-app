@@ -6,12 +6,13 @@ import { User, UserWebsite } from "./interfaces/User";
 
 // Component properties
 interface Props {
+  token: string;
   user: UserWebsite;
   userView: User;
 }
 
 // Component
-const UserView = ({ user, userView }: Props) => {
+const UserView = ({ token, user, userView }: Props) => {
   return (
     <div className="user-view">
       <div
@@ -24,7 +25,7 @@ const UserView = ({ user, userView }: Props) => {
             {userView.nickname ? userView.nickname : userView.username}
           </p>
         </div>
-        <UserOptions user={user} userView={userView} />
+        <UserOptions token={token} user={user} userView={userView} />
       </div>
       <div className="user-view-body">
         <div className="user-view-big-spacing" />
