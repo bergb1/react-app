@@ -61,6 +61,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
             user={user}
             role={role}
             userView={userView}
+            setUserView={setUserView}
           />
         </div>
         <div className="user-view-body">

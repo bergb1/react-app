@@ -134,6 +134,30 @@ const userUpdate = async (
   );
 };
 
+// Request to search users by name
+const userSearch = async (username: string): Promise<User[]> => {
+  // Define the query
+  const query = `query UserSearch($username: String!) {
+    userSearch(username: $username) {
+      _id
+      username
+      profile
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    username: username,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).userSearch as User[];
+    }
+  );
+};
+
 // Request to get a user by id
 const userById = async (_id: string): Promise<User> => {
   // Define the query
@@ -230,6 +254,7 @@ export {
   userRegister,
   userChangeRole,
   userUpdate,
+  userSearch,
   userById,
   userByToken,
   userGetRole,

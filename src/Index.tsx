@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Nav from "./components/Nav";
 import { User, UserWebsite } from "./components/interfaces/User";
 import UserView from "./components/UserView";
+import { searchUsers } from "./components/handles/IndexHandles";
 
 // Component Properties
 interface Props {
@@ -50,7 +51,27 @@ const Index = ({ token, user, setToken, setUser }: Props) => {
             userView={userView}
           />
         ) : (
-          <></>
+          <div className="user-search">
+            <input
+              type="text"
+              className="user-search-input"
+              id="userSearchInput"
+              placeholder="username"
+            />
+            <p
+              className="user-search-button"
+              onClick={() => {
+                const username = (
+                  document.getElementById("userSearchInput") as HTMLInputElement
+                ).value;
+                const resultElement = document.getElementById("searchResult") as HTMLDivElement;
+                searchUsers(setUserView, username, resultElement);
+              }}
+            >
+              Search
+            </p>
+            <div className="search-result" id="searchResult" />
+          </div>
         )}
         <div className="posts-view">Posts</div>
       </div>

@@ -13,12 +13,13 @@ interface Props {
   user: UserWebsite;
   role: string;
   userView: User;
+  setUserView: (userView: User) => void;
   editing: boolean;
   setEditing: (edit: boolean) => void;
 }
 
 // Component
-const UserOptions = ({ setEditing, editing, token, user, role, userView }: Props) => {
+const UserOptions = ({ setEditing, editing, token, user, role, userView, setUserView }: Props) => {
   const [following, setFollowing] = useState(false);
   useEffect(() => {
     // Check if the user is following the viewed user
@@ -55,8 +56,8 @@ const UserOptions = ({ setEditing, editing, token, user, role, userView }: Props
             src={following ? "unfollow.png" : "follow.png"}
             onClick={() => {
               following
-                ? unfollow(token, userView._id)
-                : follow(token, userView._id);
+                ? unfollow(setUserView, token, userView._id)
+                : follow(setUserView, token, userView._id);
             }}
           />
         </>
@@ -66,8 +67,8 @@ const UserOptions = ({ setEditing, editing, token, user, role, userView }: Props
           src={following ? "unfollow.png" : "follow.png"}
           onClick={() => {
             following
-              ? unfollow(token, userView._id)
-              : follow(token, userView._id);
+              ? unfollow(setUserView, token, userView._id)
+              : follow(setUserView, token, userView._id);
           }}
         />
       )}

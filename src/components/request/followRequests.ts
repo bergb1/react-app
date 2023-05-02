@@ -12,7 +12,7 @@ const followerAdd = async (token: string, _id: string) => {
 
   // Define the query variables
   const variables = {
-    target_id: _id,
+    targetId: _id,
   };
 
   // Process the request
@@ -37,7 +37,7 @@ const followerRemove = async (token: string, _id: string) => {
 
   // Define the query variables
   const variables = {
-    target_id: _id,
+    targetId: _id,
   };
 
   // Process the request
