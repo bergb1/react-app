@@ -71,25 +71,28 @@ const userById = async (_id: string): Promise<User> => {
       nickname
       profile_color
       favorite_song {
+        _id
         name
         cover
         description
         creator {
-          username
           nickname
+          username
         }
         album {
           cover
+          name
         }
       }
       favorite_album {
+        _id
+        name
         cover
         description
         creator {
-          username
           nickname
+          username
         }
-        name
       }
     }
   }`;
