@@ -40,7 +40,16 @@
   top: 50%;
   transform: translateY(-50%);
   margin-left: 10px;
-  font-size: 24px;
+  font-size: 17px;
+}
+
+.user-view-username-input {
+  position: relative;
+  float: left;
+  height: 100%;
+  width: calc(100% - 50px);
+  margin-left: 10px;
+  font-size: 17px;
 }
 
 .user-view-body {
@@ -58,4 +67,14 @@
 .user-view-small-spacing {
   height: 5px;
   background-color: #191e29;
+}
+
+.save-input {
+  text-align: center;
+  height: 30px;
+  margin: 0px;
+  font-size: 17px;
+  color: #191e29;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }

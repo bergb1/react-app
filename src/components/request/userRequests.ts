@@ -118,15 +118,15 @@ const userByToken = async (token: string): Promise<User> => {
 };
 
 // Request to check if the user is an admin
-const userIsAdmin = async (token: string): Promise<boolean> => {
+const userGetRole = async (token: string): Promise<string> => {
   // Define the query
   const query = `query Query {
-    userIsAdmin
+    userGetRole
   }`;
 
   // Process the request
   return await fetch(url, setupFetch(query, token)).then(async (response) => {
-    return (await handleFetch(response)).userIsAdmin as boolean;
+    return (await handleFetch(response)).userGetRole as string;
   });
 };
 
@@ -143,9 +143,18 @@ const userIsFollowing = async (token: string, _id: string) => {
   };
 
   // Process the request
-  return await fetch(url, setupFetch(query, token, variables)).then(async (response) => {
-    return (await handleFetch(response)).userIsFollowing as boolean;
-  });
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).userIsFollowing as boolean;
+    }
+  );
 };
 
-export { userLogin, userRegister, userById, userByToken, userIsAdmin, userIsFollowing };
+export {
+  userLogin,
+  userRegister,
+  userById,
+  userByToken,
+  userGetRole,
+  userIsFollowing,
+};

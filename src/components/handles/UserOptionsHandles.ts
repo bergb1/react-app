@@ -1,14 +1,14 @@
 import { followerAdd, followerRemove } from "../request/followRequests";
-import { userIsAdmin, userIsFollowing } from "../request/userRequests";
+import { userGetRole, userIsFollowing } from "../request/userRequests";
 
-const isAdmin = async (token: string): Promise<boolean> => {
+const getRole = async (token: string): Promise<string> => {
   try {
-    return (await userIsAdmin(token)) === true;
+    return await userGetRole(token);
   } catch (err) {
     console.log((err as Error).message);
-    return false;
+    return 'user';
   }
-};
+}
 
 const isFollowing = async (token: string, _id: string): Promise<boolean> => {
   try {
@@ -37,4 +37,4 @@ const unfollow = async (token: string, _id: string): Promise<boolean> => {
   }
 }
 
-export { isAdmin, isFollowing, follow, unfollow };
+export { getRole, isFollowing, follow, unfollow };

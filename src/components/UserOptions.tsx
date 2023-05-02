@@ -1,7 +1,7 @@
 import "./stylesheets/UserOptions.css";
 import {
   follow,
-  isAdmin,
+  getRole,
   isFollowing,
   unfollow,
 } from "./handles/UserOptionsHandles";
@@ -18,15 +18,15 @@ interface Props {
 }
 
 // Component
-const UserOptions = ({ setEditing, token, user, userView }: Props) => {
-  const [admin, setAdmin] = useState(false);
+const UserOptions = ({ setEditing, editing, token, user, userView }: Props) => {
+  const [role, setRole] = useState('user');
   const [following, setFollowing] = useState(false);
   useEffect(() => {
     // Check if the user is an admin
-    const checkAdmin = async () => {
-      setAdmin(await isAdmin(token));
+    const checkRole = async () => {
+      setRole(await getRole(token));
     };
-    checkAdmin();
+    checkRole();
 
     // Check if the user is following the viewed user
     const checkFollowing = async () => {
@@ -36,7 +36,9 @@ const UserOptions = ({ setEditing, token, user, userView }: Props) => {
       checkFollowing();
     }
   }),
-    [admin, following];
+    [role, following];
+  
+  console.log(role);
 
   return (
     <div className="user-options">
@@ -45,16 +47,16 @@ const UserOptions = ({ setEditing, token, user, userView }: Props) => {
           className="user-options-item"
           src="settings.png"
           onClick={() => {
-            setEditing(true);
+            setEditing(!editing);
           }}
         />
-      ) : admin ? (
+      ) : ['admin', 'root'].indexOf(role) > -1 ? (
         <>
           <img
             className="user-options-item"
             src="settings.png"
             onClick={() => {
-              setEditing(true);
+              setEditing(!editing);
             }}
           />
           <img
