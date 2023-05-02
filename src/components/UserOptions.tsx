@@ -1,11 +1,6 @@
 import "./stylesheets/UserOptions.css";
-import {
-  follow,
-  isFollowing,
-  unfollow,
-} from "./handles/UserOptionsHandles";
+import { follow, unfollow } from "./handles/UserOptionsHandles";
 import { User, UserWebsite } from "./interfaces/User";
-import { useState, useEffect } from "react";
 
 // Component properties
 interface Props {
@@ -13,25 +8,23 @@ interface Props {
   user: UserWebsite;
   role: string;
   userView: User;
-  setUserView: (userView: User) => void;
   editing: boolean;
   setEditing: (edit: boolean) => void;
+  following: boolean;
+  setFollowing: (following: boolean) => void;
 }
 
 // Component
-const UserOptions = ({ setEditing, editing, token, user, role, userView, setUserView }: Props) => {
-  const [following, setFollowing] = useState(false);
-  useEffect(() => {
-    // Check if the user is following the viewed user
-    const checkFollowing = async () => {
-      setFollowing(await isFollowing(token, userView._id));
-    };
-    if (userView._id) {
-      checkFollowing();
-    }
-  }),
-    [following];
-
+const UserOptions = ({
+  token,
+  user,
+  role,
+  userView,
+  editing,
+  setEditing,
+  following,
+  setFollowing
+}: Props) => {
   return (
     <div className="user-options">
       {user._id === userView._id ? (
@@ -42,7 +35,7 @@ const UserOptions = ({ setEditing, editing, token, user, role, userView, setUser
             setEditing(!editing);
           }}
         />
-      ) : ['admin', 'root'].indexOf(role) > -1 ? (
+      ) : ["admin", "root"].indexOf(role) > -1 ? (
         <>
           <img
             className="user-options-item"
@@ -56,8 +49,8 @@ const UserOptions = ({ setEditing, editing, token, user, role, userView, setUser
             src={following ? "unfollow.png" : "follow.png"}
             onClick={() => {
               following
-                ? unfollow(setUserView, token, userView._id)
-                : follow(setUserView, token, userView._id);
+                ? unfollow(setFollowing, token, userView._id)
+                : follow(setFollowing, token, userView._id);
             }}
           />
         </>
@@ -67,8 +60,8 @@ const UserOptions = ({ setEditing, editing, token, user, role, userView, setUser
           src={following ? "unfollow.png" : "follow.png"}
           onClick={() => {
             following
-              ? unfollow(setUserView, token, userView._id)
-              : follow(setUserView, token, userView._id);
+              ? unfollow(setFollowing, token, userView._id)
+              : follow(setFollowing, token, userView._id);
           }}
         />
       )}

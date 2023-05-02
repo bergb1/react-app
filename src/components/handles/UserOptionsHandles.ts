@@ -1,7 +1,5 @@
-import { User } from "../interfaces/User";
 import { followerAdd, followerRemove } from "../request/followRequests";
 import { userGetRole, userIsFollowing } from "../request/userRequests";
-import { setUser } from "./IndexHandles";
 
 const getRole = async (token: string): Promise<string> => {
   try {
@@ -22,14 +20,14 @@ const isFollowing = async (token: string, _id: string): Promise<boolean> => {
 };
 
 const follow = async (
-  setUserView: (userView: User) => void,
+  setFollowing: (following: boolean) => void,
   token: string,
   _id: string
 ) => {
   try {
     const resp = (await followerAdd(token, _id)) === true;
     if (resp) {
-      setUser(setUserView, _id);
+      setFollowing(true);
     }
   } catch (err) {
     console.log((err as Error).message);
@@ -38,14 +36,14 @@ const follow = async (
 };
 
 const unfollow = async (
-  setUserView: (userView: User) => void,
+  setFollowing: (following: boolean) => void,
   token: string,
   _id: string
 ) => {
   try {
     const resp = (await followerRemove(token, _id)) === true;
     if (resp) {
-      setUser(setUserView, _id);
+      setFollowing(false);
     }
   } catch (err) {
     console.log((err as Error).message);

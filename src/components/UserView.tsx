@@ -6,7 +6,7 @@ import { User, UserModify, UserWebsite } from "./interfaces/User";
 import UserContent from "./UserContent";
 import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
-import { getRole } from "./handles/UserOptionsHandles";
+import { getRole, isFollowing } from "./handles/UserOptionsHandles";
 import { update } from "./handles/UserViewHandles";
 
 // Component properties
@@ -19,16 +19,21 @@ interface Props {
 
 // Component
 const UserView = ({ token, user, userView, setUserView }: Props) => {
-  const [role, setRole] = useState("user");
+  const [following, setFollowing] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [role, setRole] = useState("");
+
   useEffect(() => {
     // Check if the user is an admin
-    const checkRole = async () => {
+    const updateStates = async () => {
       setRole(await getRole(token));
+      setFollowing(await isFollowing(token, userView._id));
     };
-    checkRole();
+    if (!role) {
+      updateStates();
+    }
   }),
-    [role];
+    [];
 
   return (
     <div className="user-interface">
@@ -55,13 +60,14 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
             )}
           </div>
           <UserOptions
-            editing={editing}
-            setEditing={setEditing}
             token={token}
             user={user}
             role={role}
             userView={userView}
-            setUserView={setUserView}
+            editing={editing}
+            setEditing={setEditing}
+            following={following}
+            setFollowing={setFollowing}
           />
         </div>
         <div className="user-view-body">
@@ -95,7 +101,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
           <></>
         )}
       </div>
-      {["admin", "root"].indexOf(role) > -1 /*&& userView._id != user._id*/ ? (
+      {["admin", "root"].indexOf(role) > -1 && userView._id != user._id ? (
         <ChangeRole token={token} user={userView} role={role} />
       ) : (
         <></>

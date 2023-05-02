@@ -8,8 +8,8 @@ import { searchUsers } from "./components/handles/IndexHandles";
 // Component Properties
 interface Props {
   token: string;
-  user: UserWebsite;
   setToken: (page: string) => void;
+  user: UserWebsite;
   setUser: (user: UserWebsite) => void;
 }
 
@@ -22,7 +22,7 @@ const userPlaceholder: User = {
 };
 
 // Component
-const Index = ({ token, user, setToken, setUser }: Props) => {
+const Index = ({ token, setToken, user, setUser }: Props) => {
   // State hook for updating
   const [userView, setUserView] = useState(userPlaceholder);
   useEffect(() => {
@@ -64,7 +64,9 @@ const Index = ({ token, user, setToken, setUser }: Props) => {
                 const username = (
                   document.getElementById("userSearchInput") as HTMLInputElement
                 ).value;
-                const resultElement = document.getElementById("searchResult") as HTMLDivElement;
+                const resultElement = document.getElementById(
+                  "searchResult"
+                ) as HTMLDivElement;
                 searchUsers(setUserView, username, resultElement);
               }}
             >
