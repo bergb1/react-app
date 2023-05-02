@@ -1,4 +1,4 @@
-.user-view-body-property {
+.property {
   position: relative;
   height: 30px;
   width: 100%;
@@ -8,7 +8,7 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
 
-.property-header {
+.property-name {
   position: relative;
   float: left;
   z-index: 1;
@@ -23,7 +23,7 @@
   color: #191e29;
 }
 
-.property-body {
+.property-value {
   position: relative;
   float: left;
   z-index: 0;
@@ -32,7 +32,7 @@
   background-color: rgba(243, 243, 243, 0.1);
 }
 
-.property-body-text {
+.property-value-text {
   position: relative;
   float: left;
   height: 100%;
@@ -41,7 +41,7 @@
   margin: 0px;
 }
 
-.property-body-background {
+.property-background {
   position: relative;
   float: left;
   height: 100%;
