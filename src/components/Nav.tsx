@@ -1,5 +1,5 @@
 import { userPlaceholder } from "../Index";
-import "./Nav.css";
+import "./stylesheets/Nav.css";
 import { setCookie } from "./functions/cookies";
 import { setUser } from "./handles/IndexHandles";
 import { User, UserWebsite } from "./interfaces/User";

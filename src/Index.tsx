@@ -28,7 +28,7 @@ const Index = ({ token, user, setToken }: Props) => {
     <>
       <Nav user={user} setUserView={setUserView} setToken={setToken}/>
       <div className="body">
-        <UserView token={token} user={user} userView={userView}/>
+        {userView.username ? <UserView token={token} user={user} userView={userView}/> : <></>}
         <div className="posts-view">Posts</div>
       </div>
     </>

@@ -3,6 +3,16 @@
   float: right;
   height: 100%;
   width: 50%;
+  padding: 5px;
   background-color: rgba(243, 243, 243, 0.25);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+.user-options-item {
+  position: relative;
+  float: right;
+  height: 100%;
+  margin-right: 10px;
+  opacity: .75;
+  cursor: pointer;
 }

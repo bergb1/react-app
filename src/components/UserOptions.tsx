@@ -1,5 +1,10 @@
-import "./UserOptions.css";
-import { isAdmin, isFollowing } from "./handles/UserOptionsHandles";
+import "./stylesheets/UserOptions.css";
+import {
+  follow,
+  isAdmin,
+  isFollowing,
+  unfollow,
+} from "./handles/UserOptionsHandles";
 import { User, UserWebsite } from "./interfaces/User";
 import { useState, useEffect } from "react";
 
@@ -8,10 +13,12 @@ interface Props {
   token: string;
   user: UserWebsite;
   userView: User;
+  editing: boolean;
+  setEditing: (edit: boolean) => void;
 }
 
 // Component
-const UserOptions = ({ token, user, userView }: Props) => {
+const UserOptions = ({ setEditing, token, user, userView }: Props) => {
   const [admin, setAdmin] = useState(false);
   const [following, setFollowing] = useState(false);
   useEffect(() => {
@@ -23,10 +30,10 @@ const UserOptions = ({ token, user, userView }: Props) => {
 
     // Check if the user is following the viewed user
     const checkFollowing = async () => {
-        setFollowing(await isFollowing(token, userView._id));
-    }
+      setFollowing(await isFollowing(token, userView._id));
+    };
     if (userView._id) {
-        checkFollowing();
+      checkFollowing();
     }
   }),
     [admin, following];
@@ -34,14 +41,42 @@ const UserOptions = ({ token, user, userView }: Props) => {
   return (
     <div className="user-options">
       {user._id === userView._id ? (
-        <div className="user-options-edit">edit</div>
+        <img
+          className="user-options-item"
+          src="settings.png"
+          onClick={() => {
+            setEditing(true);
+          }}
+        />
       ) : admin ? (
         <>
-          <div className="user-options-edit">edit</div>
-          <div className="user-options-follow">follow</div>
+          <img
+            className="user-options-item"
+            src="settings.png"
+            onClick={() => {
+              setEditing(true);
+            }}
+          />
+          <img
+            className="user-options-item"
+            src={following ? "unfollow.png" : "follow.png"}
+            onClick={() => {
+              following
+                ? unfollow(token, userView._id)
+                : follow(token, userView._id);
+            }}
+          />
         </>
       ) : (
-        <div className="user-options-follow">follow</div>
+        <img
+          className="user-options-item"
+          src={following ? "unfollow.png" : "follow.png"}
+          onClick={() => {
+            following
+              ? unfollow(token, userView._id)
+              : follow(token, userView._id);
+          }}
+        />
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import "./MediaProperty.css";
+import "./stylesheets/MediaProperty.css";
 
 // Component properties
 interface Props {

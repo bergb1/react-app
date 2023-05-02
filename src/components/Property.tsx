@@ -1,4 +1,4 @@
-import "./Property.css";
+import "./stylesheets/Property.css";
 
 // Component properties
 interface Props {

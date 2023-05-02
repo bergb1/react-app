@@ -1,8 +1,9 @@
-import MediaProperty from "./MediaProperty";
+import { useState } from "react";
 import Property from "./Property";
 import UserOptions from "./UserOptions";
-import "./UserView.css";
+import "./stylesheets/UserView.css";
 import { User, UserWebsite } from "./interfaces/User";
+import UserContent from "./UserContent";
 
 // Component properties
 interface Props {
@@ -13,6 +14,8 @@ interface Props {
 
 // Component
 const UserView = ({ token, user, userView }: Props) => {
+  const [editing, setEditing] = useState(false);
+
   return (
     <div className="user-view">
       <div
@@ -25,50 +28,21 @@ const UserView = ({ token, user, userView }: Props) => {
             {userView.nickname ? userView.nickname : userView.username}
           </p>
         </div>
-        <UserOptions token={token} user={user} userView={userView} />
+        <UserOptions
+          editing={editing}
+          setEditing={setEditing}
+          token={token}
+          user={user}
+          userView={userView}
+        />
       </div>
       <div className="user-view-body">
         <div className="user-view-big-spacing" />
         <Property name="Followers" value="no_Followers" />
         <div className="user-view-small-spacing" />
         <Property name="Following" value="no_Following" />
-        {userView.favorite_song || userView.favorite_album ? (
-          <div className="user-view-big-spacing" />
-        ) : (
-          <></>
-        )}
-        {userView.favorite_song ? (
-          <>
-            <MediaProperty
-              name="Favorite Song"
-              value={userView.favorite_song.name}
-              cover={
-                userView.favorite_song.album
-                  ? userView.favorite_song.album.cover
-                  : userView.favorite_song.cover
-              }
-              info={userView.favorite_song.description}
-            />
-            {userView.favorite_song ? (
-              <div className="user-view-small-spacing" />
-            ) : (
-              <></>
-            )}
-          </>
-        ) : (
-          <></>
-        )}
-        {userView.favorite_album ? (
-          <MediaProperty
-            name="Favorite Album"
-            value={userView.favorite_album.name}
-            cover={userView.favorite_album.cover}
-            info={userView.favorite_album.description}
-          />
-        ) : (
-          <></>
-        )}
       </div>
+      {editing ? <p>Hello</p> : <UserContent user={userView} />}
       <div className="user-view-big-spacing" />
     </div>
   );
