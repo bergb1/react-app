@@ -6,8 +6,9 @@ import UserView from "./components/UserView";
 
 // Component Properties
 interface Props {
-  setToken: (page: string) => void;
   user: UserWebsite;
+  token: string;
+  setToken: (page: string) => void;
 }
 
 // User placeholder

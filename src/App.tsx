@@ -7,6 +7,7 @@ import { getCookie } from "./components/functions/cookies";
 
 // User placeholder
 const userPlaceholder: UserWebsite = {
+  _id: "",
   username: "",
   nickname: "",
   profile_color: "",
@@ -41,7 +42,7 @@ const app = () => {
   // Redirection
   return token ? (
     user.username ? (
-      <Index user={user} setToken={setToken} />
+      <Index user={user} token={token} setToken={setToken} />
     ) : (
       <></>
     )

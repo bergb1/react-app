@@ -64,6 +64,7 @@ const userById = async (_id: string): Promise<User> => {
   // Define the query
   const query = `query User($id: ID!) {
     user(_id: $id) {
+      _id
       username
       profile
       nickname
@@ -116,4 +117,17 @@ const userByToken = async (token: string): Promise<User> => {
   });
 };
 
-export { userLogin, userRegister, userById, userByToken };
+// Request to check if the user is an admin
+const userIsAdmin = async (token: string): Promise<boolean> => {
+  // Define the query
+  const query = `query Query {
+    userIsAdmin
+  }`;
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token)).then(async (response) => {
+    return (await handleFetch(response)).userIsAdmin as boolean;
+  });
+};
+
+export { userLogin, userRegister, userById, userByToken, userIsAdmin };
