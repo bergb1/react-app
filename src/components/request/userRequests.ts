@@ -59,6 +59,81 @@ const userRegister = async (
   );
 };
 
+// Request to change the role of a user
+const userChangeRole = async (
+  token: string,
+  _id: string,
+  role: string
+): Promise<TokenMessageResponse> => {
+  // Define the query
+  const query = `mutation UserChangeRole($id: ID!, $role: String!) {
+    userChangeRole(_id: $id, role: $role) {
+      message
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    id: _id,
+    role: role,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response))
+        .userChangeRole as TokenMessageResponse;
+    }
+  );
+};
+
+// Request to update a user
+const userUpdate = async (
+  token: string,
+  user: User
+): Promise<TokenMessageResponse> => {
+  // Define the query
+  const query = `mutation UserChangeRole($user: UserModify!) {
+    userUpdate(user: $user) {
+      token
+      message
+      user {
+        _id
+        username
+        email
+        profile
+        nickname
+        profile_color
+        favorite_song {
+          name
+          cover
+          description
+          album {
+            cover
+          }
+        }
+        favorite_album {
+          name
+          cover
+          description
+        }
+      }
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    user: user,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).userUpdate as TokenMessageResponse;
+    }
+  );
+};
+
 // Request to get a user by id
 const userById = async (_id: string): Promise<User> => {
   // Define the query
@@ -153,6 +228,8 @@ const userIsFollowing = async (token: string, _id: string) => {
 export {
   userLogin,
   userRegister,
+  userChangeRole,
+  userUpdate,
   userById,
   userByToken,
   userGetRole,

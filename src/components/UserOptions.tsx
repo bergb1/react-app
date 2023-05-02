@@ -1,7 +1,6 @@
 import "./stylesheets/UserOptions.css";
 import {
   follow,
-  getRole,
   isFollowing,
   unfollow,
 } from "./handles/UserOptionsHandles";
@@ -12,22 +11,16 @@ import { useState, useEffect } from "react";
 interface Props {
   token: string;
   user: UserWebsite;
+  role: string;
   userView: User;
   editing: boolean;
   setEditing: (edit: boolean) => void;
 }
 
 // Component
-const UserOptions = ({ setEditing, editing, token, user, userView }: Props) => {
-  const [role, setRole] = useState('user');
+const UserOptions = ({ setEditing, editing, token, user, role, userView }: Props) => {
   const [following, setFollowing] = useState(false);
   useEffect(() => {
-    // Check if the user is an admin
-    const checkRole = async () => {
-      setRole(await getRole(token));
-    };
-    checkRole();
-
     // Check if the user is following the viewed user
     const checkFollowing = async () => {
       setFollowing(await isFollowing(token, userView._id));
@@ -36,7 +29,7 @@ const UserOptions = ({ setEditing, editing, token, user, userView }: Props) => {
       checkFollowing();
     }
   }),
-    [role, following];
+    [following];
 
   return (
     <div className="user-options">
