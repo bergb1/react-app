@@ -72,7 +72,12 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
         >
           <div className="user-view-header-user">
             {/* Profile picture and name */}
-            <img className="user-view-profile" src="profile-placeholder.png" />
+            <img
+              className="user-view-profile"
+              src={
+                userView.profile ? userView.profile : "profile-placeholder.png"
+              }
+            />
             {editing ? (
               <input
                 type="text"
@@ -124,7 +129,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
           </div>
         </div>
         {editing ? (
-          <UserEdit user={userView} />
+          <UserEdit userView={userView} />
         ) : (
           <UserContent user={userView} />
         )}
@@ -140,6 +145,22 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
               userModify.nickname = (
                 document.getElementById("nicknameInput") as HTMLInputElement
               ).value;
+
+              try {
+                userModify.favorite_song = (
+                  document.getElementById(
+                    "favoriteSongInput"
+                  ) as HTMLParagraphElement
+                ).innerHTML;
+              } catch (error) {}
+
+              userModify.profile_color = (
+                document.getElementById(
+                  "changeProfileColor"
+                ) as HTMLSelectElement
+              ).value;
+
+              console.log(userModify);
 
               ["admin", "root"].indexOf(role) > -1 && user._id !== userView._id
                 ? updateByID(
@@ -168,7 +189,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
 
       {/* Creator Song Create Form */}
       {role === "creator" && user._id === userView._id ? (
-        <CreateSong token={token} user={user}/>
+        <CreateSong token={token} user={user} />
       ) : (
         <></>
       )}

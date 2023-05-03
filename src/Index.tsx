@@ -31,9 +31,9 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
       setUser(userView);
     };
     if (
-      userView.nickname &&
       userView._id === user._id &&
-      userView.nickname !== user.nickname
+      (userView.nickname !== user.nickname ||
+        userView.profile_color !== user.profile_color)
     ) {
       updateUser();
     }

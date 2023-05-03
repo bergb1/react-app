@@ -25,10 +25,12 @@ const UserContent = ({ user }: Props) => {
               user.favorite_song.album
                 ? user.favorite_song.album.cover
                 : user.favorite_song.cover
+                ? user.favorite_song.cover
+                : "music-placeholder.png"
             }
             info={user.favorite_song.description}
           />
-          {user.favorite_song ? (
+          {user.favorite_album ? (
             <div className="user-view-small-spacing" />
           ) : (
             <></>
@@ -41,7 +43,11 @@ const UserContent = ({ user }: Props) => {
         <MediaProperty
           name="Favorite Album"
           value={user.favorite_album.name}
-          cover={user.favorite_album.cover}
+          cover={
+            user.favorite_album.cover
+              ? user.favorite_album.cover
+              : "music-placeholder.png"
+          }
           info={user.favorite_album.description}
         />
       ) : (

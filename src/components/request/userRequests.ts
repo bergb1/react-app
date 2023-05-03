@@ -105,6 +105,7 @@ const userUpdate = async (
         nickname
         profile_color
         favorite_song {
+          _id
           name
           cover
           description
@@ -113,6 +114,7 @@ const userUpdate = async (
           }
         }
         favorite_album {
+          _id
           name
           cover
           description
@@ -153,6 +155,7 @@ const userUpdateByID = async (
         nickname
         profile_color
         favorite_song {
+          _id
           name
           cover
           description
@@ -161,6 +164,7 @@ const userUpdateByID = async (
           }
         }
         favorite_album {
+          _id
           name
           cover
           description
@@ -218,6 +222,7 @@ const userById = async (_id: string): Promise<User> => {
       nickname
       profile_color
       favorite_song {
+        _id
         name
         cover
         description
@@ -226,6 +231,7 @@ const userById = async (_id: string): Promise<User> => {
         }
       }
       favorite_album {
+        _id
         name
         cover
         description
