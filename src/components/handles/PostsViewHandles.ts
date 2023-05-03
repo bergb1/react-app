@@ -54,6 +54,7 @@ const appendPost = async (post: Post, element: HTMLDivElement) => {
 
   // Create a post header
   const header = document.createElement("div");
+  header.style.backgroundColor = post.creator.profile_color;
   header.className = "post-header";
   output.appendChild(header);
 
@@ -83,17 +84,17 @@ const appendPost = async (post: Post, element: HTMLDivElement) => {
   song.className = "post-header-song";
   header.appendChild(song);
 
-  // Populate the song cover
-  const cover = document.createElement("img");
-  cover.src = post.song.cover ? post.song.cover : "music-placeholder.png";
-  cover.className = "post-header-song-cover";
-  song.appendChild(cover);
-
   // Populate the song name
   const name = document.createElement("p");
   name.innerHTML = post.song.name;
   name.className = "post-header-song-name";
   song.appendChild(name);
+
+  // Populate the song cover
+  const cover = document.createElement("img");
+  cover.src = post.song.cover ? post.song.cover : "music-placeholder.png";
+  cover.className = "post-header-song-cover";
+  song.appendChild(cover);
 
   // Create a post body
   const body = document.createElement("div");
