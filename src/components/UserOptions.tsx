@@ -23,47 +23,51 @@ const UserOptions = ({
   editing,
   setEditing,
   following,
-  setFollowing
+  setFollowing,
 }: Props) => {
   return (
     <div className="user-options">
       {user._id === userView._id ? (
-        <img
+        <p
           className="user-options-item"
-          src="settings.png"
           onClick={() => {
             setEditing(!editing);
           }}
-        />
+        >
+          Settings
+        </p>
       ) : ["admin", "root"].indexOf(role) > -1 ? (
         <>
-          <img
+          <p
             className="user-options-item"
-            src="settings.png"
             onClick={() => {
               setEditing(!editing);
             }}
-          />
-          <img
+          >
+            Settings
+          </p>
+          <p
             className="user-options-item"
-            src={following ? "unfollow.png" : "follow.png"}
             onClick={() => {
               following
                 ? unfollow(setFollowing, token, userView._id)
                 : follow(setFollowing, token, userView._id);
             }}
-          />
+          >
+            {following ? "Unfollow" : "Follow"}
+          </p>
         </>
       ) : (
-        <img
+        <p
           className="user-options-item"
-          src={following ? "unfollow.png" : "follow.png"}
           onClick={() => {
             following
               ? unfollow(setFollowing, token, userView._id)
               : follow(setFollowing, token, userView._id);
           }}
-        />
+        >
+          {following ? "Unfollow" : "Follow"}
+        </p>
       )}
     </div>
   );

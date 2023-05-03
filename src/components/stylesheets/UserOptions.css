@@ -11,8 +11,17 @@
 .user-options-item {
   position: relative;
   float: right;
-  height: 100%;
+  height: fit-content;
+  width: fit-content;
+  top: 50%;
+  transform: translateY(-50%);
   margin-right: 10px;
-  opacity: .75;
+  padding: 0px 2px;
+  border: 2px solid #191e29;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.user-options-item:hover {
+  background-color: rgba(243, 243, 243, 0.25);
 }

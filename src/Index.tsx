@@ -52,6 +52,12 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
           />
         ) : (
           <div className="user-search">
+            <p
+              className="user-search-header"
+              style={{ backgroundColor: user.profile_color }}
+            >
+              Search for Users
+            </p>
             <input
               type="text"
               className="user-search-input"

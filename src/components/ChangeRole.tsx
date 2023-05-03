@@ -20,7 +20,7 @@ const ChangeRole = ({ token, user, role }: Props) => {
       </select>
       <p
         className="changeRoleButton"
-        style={{ backgroundColor: user.profile_color }}
+        style={{ backgroundColor: user.profile_color}}
         onClick={() => {
           const selectedRole = (
             document.getElementById("changeRole") as HTMLInputElement
