@@ -1,48 +1,6 @@
 import { Post, PostInput } from "../interfaces/Post";
-import { postCreate } from "../request/postRequests";
+import { postCreate, postsFollowing, postsUser } from "../request/postRequests";
 import { songSearch } from "../request/songRequests";
-
-// Handle to search for songs and output them in an element
-const searchSongs = async (
-  setPickedSong: (setPickedSong: string) => void,
-  name: string,
-  resultElement: HTMLDivElement
-) => {
-  try {
-    const resp = await songSearch(name);
-    resultElement.innerHTML = "";
-    resp.forEach((song) => {
-      const e = document.createElement("p");
-      e.setAttribute("class", "search-result-entry");
-      e.onclick = () => {
-        setPickedSong(song._id);
-        resultElement.innerHTML = "";
-      };
-      e.innerHTML = song.name;
-      resultElement.appendChild(e);
-    });
-  } catch (err) {
-    console.log((err as Error).message);
-  }
-};
-
-// Handle to create a post
-const createPost = async (
-  token: string,
-  post: PostInput,
-  element: HTMLDivElement
-) => {
-  try {
-    const resp = await postCreate(token, post);
-    if (!resp) {
-      console.log("post not created");
-    } else {
-      appendPost(resp, element);
-    }
-  } catch (error) {
-    console.log((error as Error).message);
-  }
-};
 
 // Function to append a div with post information in an element
 const appendPost = async (post: Post, element: HTMLDivElement) => {
@@ -114,4 +72,75 @@ const appendPost = async (post: Post, element: HTMLDivElement) => {
   body.appendChild(date);
 };
 
-export { searchSongs, createPost, appendPost };
+// Handle to search for songs and output them in an element
+const searchSongs = async (
+  setPickedSong: (setPickedSong: string) => void,
+  name: string,
+  resultElement: HTMLDivElement
+) => {
+  try {
+    const resp = await songSearch(name);
+    resultElement.innerHTML = "";
+    resp.forEach((song) => {
+      const e = document.createElement("p");
+      e.setAttribute("class", "search-result-entry");
+      e.onclick = () => {
+        setPickedSong(song._id);
+        resultElement.innerHTML = "";
+      };
+      e.innerHTML = song.name;
+      resultElement.appendChild(e);
+    });
+  } catch (err) {
+    console.log((err as Error).message);
+  }
+};
+
+// Handle to create a post
+const createPost = async (
+  token: string,
+  post: PostInput,
+  element: HTMLDivElement
+) => {
+  try {
+    const resp = await postCreate(token, post);
+    if (!resp) {
+      console.log("post not created");
+    } else {
+      appendPost(resp, element);
+    }
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+// Handle get user posts
+const getUserPosts = async (creator: string, element: HTMLDivElement) => {
+  try {
+    const resp = await postsUser(creator);
+    if (resp.length > 0) {
+      resp.forEach((post) => {
+        appendPost(post, element);
+      });
+    }
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+// Handle get following posts
+const getFollowingPosts = async (token: string, element: HTMLDivElement) => {
+  try {
+    const resp = await postsFollowing(token);
+    
+    if (resp.length > 0) {
+      resp.forEach((post) => {
+        appendPost(post, element);
+      });
+    }
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export { searchSongs, createPost, getUserPosts, getFollowingPosts };

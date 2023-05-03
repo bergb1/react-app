@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import PostCreate from "./PostCreate";
 import { User, UserWebsite } from "./interfaces/User";
 import "./stylesheets/PostsView.css";
+import { getFollowingPosts, getUserPosts } from "./handles/PostsViewHandles";
 
 // Component properties
 interface Props {
@@ -11,6 +13,17 @@ interface Props {
 
 // Component
 const PostsView = ({ token, user, userView }: Props) => {
+  // Generate posts for the viewed user
+  useEffect(() => {
+    const element = document.getElementById("posts-list") as HTMLDivElement;
+    element.innerHTML = "";
+    if (userView._id) {
+      getUserPosts(userView._id, element);
+    } else {
+      getFollowingPosts(token, element);
+    }
+  }), [userView]
+
   return (
     <div
       className="posts-view"
