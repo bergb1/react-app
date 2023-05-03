@@ -20,6 +20,7 @@
   border: 2px solid #191e29;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
 }
 
 .user-options-item:hover {
