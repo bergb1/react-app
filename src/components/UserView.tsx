@@ -7,6 +7,8 @@ import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
 import { getRole, isFollowing } from "./handles/UserOptionsHandles";
 import {
+  deleteUser,
+  deleteUserByID,
   setFollowerCount,
   setFollowingCount,
   update,
@@ -17,13 +19,14 @@ import { CreateSong } from "./CreateSong";
 // Component properties
 interface Props {
   token: string;
+  setToken: (token: string) => void,
   user: UserWebsite;
   userView: User;
   setUserView: (user: User) => void;
 }
 
 // Component
-const UserView = ({ token, user, userView, setUserView }: Props) => {
+const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
   const [role, setRole] = useState("");
   const [following, setFollowing] = useState(false);
   const [editing, setEditing] = useState(false);
@@ -185,7 +188,11 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
         <div
           className="user-delete"
           onClick={() => {
-            console.log("Delete the account!");
+            ["admin", "root"].indexOf(role) > -1 && userView._id != user._id ? (
+              deleteUserByID(token, userView._id, setToken, user)
+            ) : (
+              deleteUser(token, setToken)
+            )
           }}
         >
           <p id="user-delete-text">Delete Account</p>

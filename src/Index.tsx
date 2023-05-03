@@ -48,6 +48,7 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
           <UserView
             setUserView={setUserView}
             token={token}
+            setToken={setToken}
             user={user}
             userView={userView}
           />

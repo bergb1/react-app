@@ -1,5 +1,5 @@
 import { SongCreate } from "../interfaces/Song";
-import { User, UserModify } from "../interfaces/User";
+import { User, UserModify, UserWebsite } from "../interfaces/User";
 import { followers, following } from "../request/followRequests";
 import { songCreate } from "../request/songRequests";
 import {
@@ -56,11 +56,12 @@ const deleteUser = async (token: string, setToken: (token: string) => void) => {
 const deleteUserByID = async (
   token: string,
   _id: string,
-  setToken: (token: string) => void
+  setToken: (token: string) => void,
+  user: UserWebsite
 ) => {
   try {
     const resp = await userDeleteByID(token, _id);
-    if (resp.user._id) setToken("");
+    if (resp.user._id === user._id) setToken("");
   } catch (error) {
     console.log((error as Error).message);
   }

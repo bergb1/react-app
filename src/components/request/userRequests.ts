@@ -221,7 +221,7 @@ const userDeleteByID = async (
 
   // Define the variables
   const variables = {
-    _id: _id,
+    id: _id,
   };
 
   // Process the request
