@@ -51,7 +51,7 @@ const followerRemove = async (token: string, _id: string) => {
 };
 
 // Request to get the followers of a user
-const followers = async (_id: string) => {
+const followers = async (_id: string): Promise<string[]> => {
   // Define the query
   const query = `query Query($id: String!) {
     followers(_id: $id)
@@ -65,13 +65,13 @@ const followers = async (_id: string) => {
   // Process the request
   return await fetch(url, setupFetch(query, undefined, variables)).then(
     async (response) => {
-      return (await handleFetch(response)).followers;
+      return (await handleFetch(response)).followers as string[];
     }
   );
 };
 
 // Request to get the users ID's a user is following
-const following = async (_id: string) => {
+const following = async (_id: string): Promise<string[]> => {
   // Define the query
   const query = `query Query($id: String!) {
     following(_id: $id)
@@ -85,7 +85,7 @@ const following = async (_id: string) => {
   // Process the request
   return await fetch(url, setupFetch(query, undefined, variables)).then(
     async (response) => {
-      return (await handleFetch(response)).followers;
+      return (await handleFetch(response)).followers as string[];
     }
   );
 };

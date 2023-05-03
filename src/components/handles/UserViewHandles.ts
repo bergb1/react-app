@@ -1,4 +1,5 @@
 import { User, UserModify } from "../interfaces/User";
+import { followers, following } from "../request/followRequests";
 import { userUpdate, userUpdateByID } from "../request/userRequests";
 
 // Update a user as themselves
@@ -34,4 +35,30 @@ const updateByID = async (
   }
 };
 
-export { update, updateByID };
+// Setting an element as the number of followers
+const setFollowerCount = async (
+  _id: string,
+  element: HTMLParagraphElement
+) => {
+  try {
+    const resp = await followers(_id);
+    element.innerHTML = resp.length.toString();
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+}
+
+// Setting an element as the number of users someone is following
+const setFollowingCount = async (
+  _id: string,
+  element: HTMLParagraphElement
+) => {
+  try {
+    const resp = await following(_id);
+    element.innerHTML = resp.length.toString();
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+}
+
+export { update, updateByID, setFollowerCount, setFollowingCount };
