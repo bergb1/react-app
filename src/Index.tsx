@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import { User, UserWebsite } from "./components/interfaces/User";
 import UserView from "./components/UserView";
 import { searchUsers } from "./components/handles/IndexHandles";
+import PostsView from "./components/PostsView";
 
 // Component Properties
 interface Props {
@@ -81,7 +82,7 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
             <div className="search-result" id="searchResult" />
           </div>
         )}
-        <div className="posts-view">Posts</div>
+        <PostsView userView={userView}/>
       </div>
     </>
   );

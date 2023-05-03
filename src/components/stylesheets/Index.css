@@ -2,13 +2,6 @@
   width: 100%;
 }
 
-.posts-view {
-  position: relative;
-  float: left;
-  height: fit-content;
-  width: 50%;
-}
-
 .user-search {
   position: relative;
   float: right;
