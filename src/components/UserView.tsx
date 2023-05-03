@@ -1,13 +1,13 @@
+import "./stylesheets/UserView.css";
 import { useState, useEffect } from "react";
 import Property from "./Property";
 import UserOptions from "./UserOptions";
-import "./stylesheets/UserView.css";
 import { User, UserModify, UserWebsite } from "./interfaces/User";
 import UserContent from "./UserContent";
 import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
 import { getRole, isFollowing } from "./handles/UserOptionsHandles";
-import { update } from "./handles/UserViewHandles";
+import { update, updateByID } from "./handles/UserViewHandles";
 
 // Component properties
 interface Props {
@@ -19,9 +19,9 @@ interface Props {
 
 // Component
 const UserView = ({ token, user, userView, setUserView }: Props) => {
+  const [role, setRole] = useState("");
   const [following, setFollowing] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [role, setRole] = useState("");
 
   useEffect(() => {
     // Check if the user is an admin
@@ -87,12 +87,20 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
             className="save-input"
             style={{ backgroundColor: userView.profile_color }}
             onClick={() => {
-              let user: UserModify = {};
-              user.nickname = (
+              let userModify: UserModify = {};
+              userModify.nickname = (
                 document.getElementById("nicknameInput") as HTMLInputElement
               ).value;
 
-              update(setUserView, setEditing, token, user);
+              ["admin", "root"].indexOf(role) > -1 && user._id !== userView._id
+                ? updateByID(
+                    setUserView,
+                    setEditing,
+                    token,
+                    userView._id,
+                    userModify
+                  )
+                : update(setUserView, setEditing, token, userModify);
             }}
           >
             Save Changes

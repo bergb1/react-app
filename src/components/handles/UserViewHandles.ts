@@ -1,5 +1,5 @@
 import { User, UserModify } from "../interfaces/User";
-import { userUpdate } from "../request/userRequests";
+import { userUpdate, userUpdateByID } from "../request/userRequests";
 
 const update = async (
   setUserView: (user: User) => void,
@@ -9,12 +9,27 @@ const update = async (
 ) => {
   try {
     const resp = await userUpdate(token, user);
-    if (!resp) throw new Error("user not created");
-    setUserView(resp.user);
-    setEditing(false);
+    if (resp) {
+      setUserView(resp.user);
+      setEditing(false);
+    }
   } catch (err) {
     console.log((err as Error).message);
   }
 };
 
-export { update };
+const updateByID = async (
+  setUserView: (user: User) => void,
+  setEditing: (editing: boolean) => void,
+  token: string,
+  _id: string,
+  user: UserModify
+) => {
+  const resp = await userUpdateByID(token, _id, user);
+  if (resp) {
+    setUserView(resp.user);
+    setEditing(false);
+  }
+};
+
+export { update, updateByID };

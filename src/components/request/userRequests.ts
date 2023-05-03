@@ -134,6 +134,55 @@ const userUpdate = async (
   );
 };
 
+// Request to update user by id
+const userUpdateByID = async (
+  token: string,
+  _id: string,
+  user: UserModify
+): Promise<TokenMessageResponse> => {
+  // Define the query
+  const query = `mutation UserUpdateByID($id: ID!, $user: AdminModify!) {
+    userUpdateByID(_id: $id, user: $user) {
+      token
+      message
+      user {
+        _id
+        username
+        email
+        profile
+        nickname
+        profile_color
+        favorite_song {
+          name
+          cover
+          description
+          album {
+            cover
+          }
+        }
+        favorite_album {
+          name
+          cover
+          description
+        }
+      }
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    id: _id,
+    user: user,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).userUpdateByID as TokenMessageResponse;
+    }
+  );
+};
+
 // Request to search users by name
 const userSearch = async (username: string): Promise<User[]> => {
   // Define the query
@@ -254,6 +303,7 @@ export {
   userRegister,
   userChangeRole,
   userUpdate,
+  userUpdateByID,
   userSearch,
   userById,
   userByToken,
