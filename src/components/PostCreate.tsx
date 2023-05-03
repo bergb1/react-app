@@ -3,6 +3,7 @@ import { UserWebsite } from "./interfaces/User";
 import "./stylesheets/PostCreate.css";
 import "./stylesheets/UserView.css";
 import { searchSongs } from "./handles/PostsViewHandles";
+import { PostInput } from "./interfaces/Post";
 
 // Component properties
 interface Props {
@@ -20,7 +21,7 @@ const PostCreate = ({ user }: Props) => {
         className="post-create-header"
         style={{ backgroundColor: user.profile_color }}
       >
-        <p className="post-create-header-text">Create Song</p>
+        <p className="post-create-header-text">Create Post</p>
       </div>
 
       {/* Form Body */}
@@ -80,7 +81,14 @@ const PostCreate = ({ user }: Props) => {
           className="btn btn-primary"
           id="post-create-button"
           onClick={() => {
-            console.log((document.getElementById('messageInput') as HTMLTextAreaElement).value);
+            const post: PostInput = {
+              message: (
+                document.getElementById("messageInput") as HTMLTextAreaElement
+              ).value,
+              song: pickedSong,
+            };
+
+            console.log(post);
           }}
         >
           Create Post
