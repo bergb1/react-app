@@ -180,6 +180,20 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
         )}
       </div>
 
+      {/* Delete Account */}
+      {editing ? (
+        <div
+          className="user-delete"
+          onClick={() => {
+            console.log("Delete the account!");
+          }}
+        >
+          <p id="user-delete-text">Delete Account</p>
+        </div>
+      ) : (
+        <></>
+      )}
+
       {/* Admin Change Role Form */}
       {["admin", "root"].indexOf(role) > -1 && userView._id != user._id ? (
         <ChangeRole token={token} user={userView} role={role} />

@@ -182,7 +182,53 @@ const userUpdateByID = async (
   // Process the request
   return await fetch(url, setupFetch(query, token, variables)).then(
     async (response) => {
-      return (await handleFetch(response)).userUpdateByID as TokenMessageResponse;
+      return (await handleFetch(response))
+        .userUpdateByID as TokenMessageResponse;
+    }
+  );
+};
+
+// Request to delete a user as themselves
+const userDelete = async (token: string): Promise<TokenMessageResponse> => {
+  // Define the query
+  const query = `mutation UserDelete {
+    userDelete {
+      user {
+        _id
+      }
+    }
+  }`;
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token)).then(async (response) => {
+    return (await handleFetch(response)).userDelete as TokenMessageResponse;
+  });
+};
+
+// Request to delete a user as an admin
+const userDeleteByID = async (
+  token: string,
+  _id: string
+): Promise<TokenMessageResponse> => {
+  // Define the query
+  const query = `mutation UserDeleteByID($id: ID!) {
+    userDeleteByID(_id: $id) {
+      user {
+        _id
+      }
+    }
+  }`;
+
+  // Define the variables
+  const variables = {
+    _id: _id,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response))
+        .userDeleteByID as TokenMessageResponse;
     }
   );
 };
@@ -310,6 +356,8 @@ export {
   userChangeRole,
   userUpdate,
   userUpdateByID,
+  userDelete,
+  userDeleteByID,
   userSearch,
   userById,
   userByToken,
