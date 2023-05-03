@@ -23,4 +23,27 @@ const songCreate = async (token: string, song: SongCreate): Promise<Song> => {
   );
 };
 
-export { songCreate };
+// Request to search for songs by name
+const songSearch = async (name: string): Promise<Song[]> => {
+  // Define the query
+  const query = `query SongSearch($name: String!) {
+    songSearch(name: $name) {
+      _id
+      name
+    }
+  }`;
+
+  // Define the query variables
+  const variables = {
+    name: name,
+  };
+
+  // Process the request
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).songSearch as Song[];
+    }
+  );
+};
+
+export { songCreate, songSearch };

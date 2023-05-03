@@ -20,13 +20,13 @@ const searchUsers = async (
     const resp = await userSearch(username);
     resultElement.innerHTML = "";
     resp.forEach((user) => {
-      const currentElement = document.createElement("p");
-      currentElement.setAttribute("class", "search-result-entry");
-      currentElement.onclick = () => {
+      const e = document.createElement("p");
+      e.setAttribute("class", "search-result-entry");
+      e.onclick = () => {
         setUser(setUserView, user._id);
       };
-      currentElement.innerHTML = user.username;
-      resultElement.appendChild(currentElement);
+      e.innerHTML = user.username;
+      resultElement.appendChild(e);
     });
   } catch (err) {
     console.log((err as Error).message);

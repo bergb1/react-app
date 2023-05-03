@@ -82,7 +82,7 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
             <div className="search-result" id="searchResult" />
           </div>
         )}
-        <PostsView userView={userView}/>
+        <PostsView user={user} userView={userView} />
       </div>
     </>
   );

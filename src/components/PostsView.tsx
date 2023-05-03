@@ -1,17 +1,18 @@
 import PostCreate from "./PostCreate";
-import { User } from "./interfaces/User";
+import { User, UserWebsite } from "./interfaces/User";
 import "./stylesheets/PostsView.css";
 
 // Component properties
 interface Props {
+  user: UserWebsite;
   userView: User;
 }
 
 // Component
-const PostsView = ({ userView }: Props) => {
+const PostsView = ({ user, userView }: Props) => {
   return (
     <div className="posts-view" style={userView.username ? {width: '50%'} : {width: 'calc(100% - 300px)'}}>
-      <PostCreate />
+      <PostCreate user={user} />
       <p>Posts View</p>
     </div>
   );

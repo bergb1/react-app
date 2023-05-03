@@ -1,0 +1,65 @@
+.post-create {
+  position: relative;
+  height: fit-content;
+  width: calc(70%);
+  margin: 20px 15% 20px 15%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 9;
+}
+
+.post-create-header {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  font-size: 17px;
+}
+
+.post-create-background {
+  background-color: #191e29;
+}
+
+.post-create-header-text {
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.song-search-input {
+  position: relative;
+  float: left;
+  height: 30px;
+  width: 70%;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+.song-search-button {
+  position: relative;
+  float: right;
+  height: 30px;
+  width: 30%;
+  margin: 0px;
+  background-color: #f3f3f3;
+  border: 2px solid #191e29;;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  color: #191e29;
+  z-index: 2;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+#post-create-button {
+  width: 100%;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
