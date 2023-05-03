@@ -2,16 +2,17 @@ import { useState } from "react";
 import { UserWebsite } from "./interfaces/User";
 import "./stylesheets/PostCreate.css";
 import "./stylesheets/UserView.css";
-import { searchSongs } from "./handles/PostsViewHandles";
+import { createPost, searchSongs } from "./handles/PostsViewHandles";
 import { PostInput } from "./interfaces/Post";
 
 // Component properties
 interface Props {
+  token: string;
   user: UserWebsite;
 }
 
 // Component
-const PostCreate = ({ user }: Props) => {
+const PostCreate = ({ token, user }: Props) => {
   const [pickedSong, setPickedSong] = useState("");
 
   return (
@@ -71,7 +72,7 @@ const PostCreate = ({ user }: Props) => {
             id="messageInput"
             placeholder="Enter Message"
             name="Text1"
-            rows={3}
+            rows={2}
           ></textarea>
         </div>
         <div className="user-view-big-spacing" />
@@ -87,8 +88,11 @@ const PostCreate = ({ user }: Props) => {
               ).value,
               song: pickedSong,
             };
-
-            console.log(post);
+            createPost(token, post);
+            (
+              document.getElementById("messageInput") as HTMLTextAreaElement
+            ).value = "";
+            setPickedSong("");
           }}
         >
           Create Post

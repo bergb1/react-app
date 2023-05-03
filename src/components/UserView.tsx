@@ -167,7 +167,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
       )}
 
       {/* Creator Song Create Form */}
-      {role === "creator" ? (
+      {role === "creator" && user._id === userView._id ? (
         <CreateSong token={token} user={user}/>
       ) : (
         <></>
