@@ -7,6 +7,8 @@ import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
 import { getRole, isFollowing } from "./handles/UserOptionsHandles";
 import {
+  setFollowerCount,
+  setFollowingCount,
   update,
   updateByID,
 } from "./handles/UserViewHandles";
@@ -25,11 +27,31 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
   const [following, setFollowing] = useState(false);
   const [editing, setEditing] = useState(false);
 
+  // Effect when clicking follow / unfollow after the first render
   useEffect(() => {
-    // Check if the user is an admin
+    if (role) {
+      setFollowerCount(
+        userView._id,
+        document.getElementById("follower-count") as HTMLParagraphElement
+      );
+    }
+  }),
+    [following];
+
+  // Effect when rendering this element the first time
+  useEffect(() => {
     const updateStates = async () => {
-      setRole(await getRole(token));
-      setFollowing(await isFollowing(token, userView._id));
+      setFollowingCount(
+        userView._id,
+        document.getElementById("following-count") as HTMLParagraphElement
+      );
+
+      if (user._id !== userView._id) {
+        setFollowing(await isFollowing(token, userView._id));
+        setRole(await getRole(token));
+      } else {
+        setRole('user');
+      }
     };
     if (!role) {
       updateStates();
@@ -78,7 +100,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
             <div className="property-name">Followers</div>
             <div className="property-value">
               <div className="property-background"></div>
-              <p className="property-value-text"></p>
+              <p className="property-value-text" id="follower-count"></p>
             </div>
           </div>
           <div className="user-view-small-spacing" />
@@ -86,7 +108,7 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
             <div className="property-name">Following</div>
             <div className="property-value">
               <div className="property-background"></div>
-              <p className="property-value-text"></p>
+              <p className="property-value-text" id="following-count"></p>
             </div>
           </div>
         </div>

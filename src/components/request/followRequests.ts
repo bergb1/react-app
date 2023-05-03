@@ -85,7 +85,7 @@ const following = async (_id: string): Promise<string[]> => {
   // Process the request
   return await fetch(url, setupFetch(query, undefined, variables)).then(
     async (response) => {
-      return (await handleFetch(response)).followers as string[];
+      return (await handleFetch(response)).following as string[];
     }
   );
 };
