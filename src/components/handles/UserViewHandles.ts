@@ -1,4 +1,5 @@
 import { User, UserModify } from "../interfaces/User";
+import { followers, following } from "../request/followRequests";
 import { userUpdate, userUpdateByID } from "../request/userRequests";
 
 const update = async (
@@ -32,4 +33,30 @@ const updateByID = async (
   }
 };
 
-export { update, updateByID };
+// Set the inner html of an element as the follower count
+const setFollowerCount = async (
+  token: string,
+  element: HTMLParagraphElement
+): Promise<void> => {
+  try {
+    const resp = await followers(token);
+    element.innerHTML = resp.length.toString();
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+// Set the inner html of an element as the following count
+const setFollowingCount = async (
+  token: string,
+  element: HTMLParagraphElement
+): Promise<void> => {
+  try {
+    const resp = await following(token);
+    element.innerHTML = resp.length.toString();
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+export { update, updateByID, setFollowerCount, setFollowingCount };
