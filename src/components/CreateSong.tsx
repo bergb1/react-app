@@ -1,3 +1,4 @@
+import { createSong } from "./handles/UserViewHandles";
 import { SongCreate } from "./interfaces/Song";
 import { UserWebsite } from "./interfaces/User";
 import "./stylesheets/CreateSong.css";
@@ -10,14 +11,15 @@ interface Props {
 }
 
 // Component
-const CreateSong = ({user}: Props) => {
+const CreateSong = ({token, user}: Props) => {
   return (
     <div className="create-song">
       <div className="create-song-header" style={{backgroundColor: user.profile_color}}>
         <p className="create-song-header-text">Create Song</p>
       </div>
-      <div className="form-group">
-        <label htmlFor="songNameInput">Song Name</label>
+      <div className="create-song-background">
+      <div className="user-view-big-spacing" />
+      <div className="form-group" id="formGroup">
         <input
           type="text"
           className="form-control"
@@ -25,8 +27,8 @@ const CreateSong = ({user}: Props) => {
           placeholder="Enter Song Name"
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="songDescInput">Description</label>
+      <div className="user-view-small-spacing" />
+      <div className="form-group" id="formGroup">
         <input
           type="text"
           className="form-control"
@@ -43,11 +45,12 @@ const CreateSong = ({user}: Props) => {
             name: (document.getElementById('songNameInput') as HTMLInputElement).value,
             description: (document.getElementById('songDescInput') as HTMLInputElement).value,
           };
-          console.log(song);
+          createSong(token, song);
         }}
       >
         Create Song
       </button>
+      </div>
     </div>
   );
 };

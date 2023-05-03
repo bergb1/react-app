@@ -1,5 +1,7 @@
+import { SongCreate } from "../interfaces/Song";
 import { User, UserModify } from "../interfaces/User";
 import { followers, following } from "../request/followRequests";
+import { songCreate } from "../request/songRequests";
 import { userUpdate, userUpdateByID } from "../request/userRequests";
 
 // Update a user as themselves
@@ -61,4 +63,16 @@ const setFollowingCount = async (
   }
 }
 
-export { update, updateByID, setFollowerCount, setFollowingCount };
+// Creating a song in the database
+const createSong = async (
+  token: string,
+  song: SongCreate
+) => {
+  try {
+    return await songCreate(token, song);
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+}
+
+export { update, updateByID, setFollowerCount, setFollowingCount, createSong };
