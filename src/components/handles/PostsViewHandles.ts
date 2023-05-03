@@ -27,11 +27,17 @@ const searchSongs = async (
 };
 
 // Handle to create a post
-const createPost = async (token: string, post: PostInput) => {
+const createPost = async (
+  token: string,
+  post: PostInput,
+  element: HTMLDivElement
+) => {
   try {
     const resp = await postCreate(token, post);
     if (!resp) {
       console.log("post not created");
+    } else {
+      appendPost(resp, element);
     }
   } catch (error) {
     console.log((error as Error).message);
@@ -39,12 +45,12 @@ const createPost = async (token: string, post: PostInput) => {
 };
 
 // Function to append a div with post information in an element
-const appendPost = (post: Post, element: HTMLDivElement) => {
+const appendPost = async (post: Post, element: HTMLDivElement) => {
   // Create a post
   const output = document.createElement("div");
   output.id = post._id;
   output.className = "post";
-  element.appendChild(output);
+  element.prepend(output);
 
   // Create a post header
   const header = document.createElement("div");

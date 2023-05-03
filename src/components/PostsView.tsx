@@ -18,8 +18,18 @@ const PostsView = ({ token, user, userView }: Props) => {
         userView.username ? { width: "50%" } : { width: "calc(100% - 300px)" }
       }
     >
-      {user._id === userView._id ? <PostCreate token={token} user={user} /> : <></>}
-      <p>Posts View</p>
+      {user._id === userView._id ? (
+        <PostCreate
+          outputElement={
+            document.getElementById("posts-list") as HTMLDivElement
+          }
+          token={token}
+          user={user}
+        />
+      ) : (
+        <></>
+      )}
+      <div id="posts-list"></div>
     </div>
   );
 };

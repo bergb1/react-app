@@ -7,6 +7,18 @@ const postCreate = async (token: string, post: PostInput): Promise<Post> => {
   const query = `mutation PostCreate($post: PostInput!) {
     postCreate(post: $post) {
       _id
+      creator {
+        nickname
+        profile
+        profile_color
+        username
+      }
+      date
+      message
+      song {
+        cover
+        name
+      }
     }
   }`;
 

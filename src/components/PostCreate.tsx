@@ -9,10 +9,11 @@ import { PostInput } from "./interfaces/Post";
 interface Props {
   token: string;
   user: UserWebsite;
+  outputElement: HTMLDivElement;
 }
 
 // Component
-const PostCreate = ({ token, user }: Props) => {
+const PostCreate = ({ token, user, outputElement }: Props) => {
   const [pickedSong, setPickedSong] = useState("");
 
   return (
@@ -88,7 +89,7 @@ const PostCreate = ({ token, user }: Props) => {
               ).value,
               song: pickedSong,
             };
-            createPost(token, post);
+            createPost(token, post, outputElement);
             (
               document.getElementById("messageInput") as HTMLTextAreaElement
             ).value = "";
