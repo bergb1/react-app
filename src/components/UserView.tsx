@@ -1,13 +1,15 @@
 import "./stylesheets/UserView.css";
 import { useState, useEffect } from "react";
-import Property from "./Property";
 import UserOptions from "./UserOptions";
 import { User, UserModify, UserWebsite } from "./interfaces/User";
 import UserContent from "./UserContent";
 import { UserEdit } from "./UserEdit";
 import { ChangeRole } from "./ChangeRole";
 import { getRole, isFollowing } from "./handles/UserOptionsHandles";
-import { update, updateByID } from "./handles/UserViewHandles";
+import {
+  update,
+  updateByID,
+} from "./handles/UserViewHandles";
 
 // Component properties
 interface Props {
@@ -72,9 +74,21 @@ const UserView = ({ token, user, userView, setUserView }: Props) => {
         </div>
         <div className="user-view-body">
           <div className="user-view-big-spacing" />
-          <Property name="Followers" value="no_Followers" />
+          <div className="property">
+            <div className="property-name">Followers</div>
+            <div className="property-value">
+              <div className="property-background"></div>
+              <p className="property-value-text"></p>
+            </div>
+          </div>
           <div className="user-view-small-spacing" />
-          <Property name="Following" value="no_Following" />
+          <div className="property">
+            <div className="property-name">Following</div>
+            <div className="property-value">
+              <div className="property-background"></div>
+              <p className="property-value-text"></p>
+            </div>
+          </div>
         </div>
         {editing ? (
           <UserEdit user={userView} />

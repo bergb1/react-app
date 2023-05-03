@@ -50,30 +50,4 @@ const followerRemove = async (token: string, _id: string) => {
   );
 };
 
-// Followers
-const followers = async (token: string): Promise<string[]> => {
-  // Define the query
-  const query = `query Query {
-    followers
-  }`;
-
-  // Process the request
-  return await fetch(url, setupFetch(query, token)).then(async (response) => {
-    return (await handleFetch(response)).followers as string[];
-  });
-};
-
-// Following
-const following = async (token: string): Promise<string[]> => {
-  // Define the query
-  const query = `query Query {
-    following
-  }`;
-
-  // Process the request
-  return await fetch(url, setupFetch(query, token)).then(async (response) => {
-    return (await handleFetch(response)).following as string[];
-  });
-};
-
-export { followerAdd, followerRemove, followers, following };
+export { followerAdd, followerRemove };
