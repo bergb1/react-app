@@ -1,0 +1,36 @@
+.create-song {
+  position: relative;
+  height: fit-content;
+  width: calc(80%);
+  margin: 20px 10% 20px 10%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 9;
+}
+
+.create-song-header {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.create-song-header-text {
+    position: relative;
+    height: fit-content;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.form-group {
+    background-color: #191e29;
+}
+
+#create-song-button {
+    width: 100%;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}

@@ -10,4 +10,11 @@ interface Song {
   album?: Album;
 }
 
-export type { Song };
+interface SongCreate {
+  name: string;
+  cover?: string;
+  description?: string;
+  album?: Album;
+}
+
+export type { Song, SongCreate };
