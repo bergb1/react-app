@@ -4,7 +4,6 @@ import UserOptions from "./UserOptions";
 import { User, UserModify, UserWebsite } from "./interfaces/User";
 import UserContent from "./UserContent";
 import { UserEdit } from "./UserEdit";
-import { ChangeRole } from "./ChangeRole";
 import { getRole, isFollowing } from "./handles/UserOptionsHandles";
 import {
   deleteUser,
@@ -15,11 +14,12 @@ import {
   updateByID,
 } from "./handles/UserViewHandles";
 import { CreateSong } from "./CreateSong";
+import { changeRole } from "./handles/ChangeRoleHandles";
 
 // Component properties
 interface Props {
   token: string;
-  setToken: (token: string) => void,
+  setToken: (token: string) => void;
   user: UserWebsite;
   userView: User;
   setUserView: (user: User) => void;
@@ -132,7 +132,7 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
           </div>
         </div>
         {editing ? (
-          <UserEdit userView={userView} />
+          <UserEdit user={user} userView={userView} role={role} />
         ) : (
           <UserContent user={userView} />
         )}
@@ -163,8 +163,6 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
                 ) as HTMLSelectElement
               ).value;
 
-              console.log(userModify);
-
               ["admin", "root"].indexOf(role) > -1 && user._id !== userView._id
                 ? updateByID(
                     setUserView,
@@ -174,6 +172,16 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
                     userModify
                   )
                 : update(setUserView, setEditing, token, userModify);
+
+              if (
+                ["admin", "root"].indexOf(role) > -1 &&
+                user._id !== userView._id
+              ) {
+                const selectedRole = (
+                  document.getElementById("changeRole") as HTMLInputElement
+                ).value;
+                changeRole(token, userView._id, selectedRole);
+              }
             }}
           >
             Save Changes
@@ -188,22 +196,13 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
         <div
           className="user-delete"
           onClick={() => {
-            ["admin", "root"].indexOf(role) > -1 && userView._id != user._id ? (
-              deleteUserByID(token, userView._id, setToken, user)
-            ) : (
-              deleteUser(token, setToken)
-            )
+            ["admin", "root"].indexOf(role) > -1 && userView._id != user._id
+              ? deleteUserByID(token, userView._id, setToken, user)
+              : deleteUser(token, setToken);
           }}
         >
           <p id="user-delete-text">Delete Account</p>
         </div>
-      ) : (
-        <></>
-      )}
-
-      {/* Admin Change Role Form */}
-      {["admin", "root"].indexOf(role) > -1 && userView._id != user._id ? (
-        <ChangeRole token={token} user={userView} role={role} />
       ) : (
         <></>
       )}
@@ -214,6 +213,7 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
       ) : (
         <></>
       )}
+      <div id="songs-list"></div>
     </div>
   );
 };

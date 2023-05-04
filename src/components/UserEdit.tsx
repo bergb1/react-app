@@ -1,15 +1,17 @@
 import "./stylesheets/UserEdit.css";
 import { useState } from "react";
 import { searchSongs } from "./handles/PostsViewHandles";
-import { User } from "./interfaces/User";
+import { User, UserWebsite } from "./interfaces/User";
 
 // Component properties
 interface Props {
+  user: UserWebsite;
   userView: User;
+  role: string;
 }
 
 // Component
-const UserEdit = ({ userView }: Props) => {
+const UserEdit = ({ user, userView, role }: Props) => {
   const [pickedSong, setPickedSong] = useState(
     userView.favorite_song ? userView.favorite_song._id : ""
   );
@@ -66,6 +68,17 @@ const UserEdit = ({ userView }: Props) => {
         <option value="Violet">Pink</option>
         <option value="LightGray">Gray</option>
       </select>
+
+      <p>User Role</p>
+      {["admin", "root"].indexOf(role) > -1 && user._id !== userView._id ? (
+        <select name="roles" id="changeRole" defaultValue={"user"}>
+          <option value="user">User</option>
+          <option value="creator">Creator</option>
+          {role === "root" ? <option value="admin">Admin</option> : <></>}
+        </select>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
