@@ -9,18 +9,19 @@ interface Props {
   token: string;
   user: UserWebsite;
   userView: User;
+  setUserView: (userView: User) =>  void;
 }
 
 // Component
-const PostsView = ({ token, user, userView }: Props) => {
+const PostsView = ({ token, user, userView, setUserView }: Props) => {
   // Generate posts for the viewed user
   useEffect(() => {
     const element = document.getElementById("posts-list") as HTMLDivElement;
     element.innerHTML = "";
     if (userView._id) {
-      getUserPosts(userView._id, element);
+      getUserPosts(setUserView, userView._id, element);
     } else {
-      getFollowingPosts(token, element);
+      getFollowingPosts(setUserView, token, element);
     }
   }), [userView]
 

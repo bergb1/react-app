@@ -8,10 +8,27 @@ const postCreate = async (token: string, post: PostInput): Promise<Post> => {
     postCreate(post: $post) {
       _id
       creator {
-        nickname
-        profile
-        profile_color
+        _id
         username
+        email
+        profile
+        nickname
+        profile_color
+        favorite_song {
+          _id
+          name
+          cover
+          description
+          album {
+            cover
+          }
+        }
+        favorite_album {
+          _id
+          name
+          cover
+          description
+        }
       }
       date
       message
@@ -42,10 +59,27 @@ const postsUser = async (creator: string): Promise<Post[]> => {
     postsUser(creator: $creator) {
       _id
       creator {
-        nickname
-        profile
-        profile_color
+        _id
         username
+        email
+        profile
+        nickname
+        profile_color
+        favorite_song {
+          _id
+          name
+          cover
+          description
+          album {
+            cover
+          }
+        }
+        favorite_album {
+          _id
+          name
+          cover
+          description
+        }
       }
       date
       message
@@ -76,10 +110,27 @@ const postsFollowing = async (token: string): Promise<Post[]> => {
     postsFollowing {
       _id
       creator {
-        nickname
-        profile
-        profile_color
+        _id
         username
+        email
+        profile
+        nickname
+        profile_color
+        favorite_song {
+          _id
+          name
+          cover
+          description
+          album {
+            cover
+          }
+        }
+        favorite_album {
+          _id
+          name
+          cover
+          description
+        }
       }
       date
       message

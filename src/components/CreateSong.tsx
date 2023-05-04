@@ -46,6 +46,8 @@ const CreateSong = ({token, user}: Props) => {
             description: (document.getElementById('songDescInput') as HTMLInputElement).value,
           };
           createSong(token, song);
+          (document.getElementById('songNameInput') as HTMLInputElement).value = "";
+          (document.getElementById('songDescInput') as HTMLInputElement).value = "";
         }}
       >
         Create Song

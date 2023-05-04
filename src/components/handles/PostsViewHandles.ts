@@ -1,9 +1,14 @@
 import { Post, PostInput } from "../interfaces/Post";
+import { User } from "../interfaces/User";
 import { postCreate, postsFollowing, postsUser } from "../request/postRequests";
 import { songSearch } from "../request/songRequests";
 
 // Function to append a div with post information in an element
-const appendPost = async (post: Post, element: HTMLDivElement) => {
+const appendPost = async (
+  setUserView: (userView: User) => void,
+  post: Post,
+  element: HTMLDivElement
+) => {
   // Create a post
   const output = document.createElement("div");
   output.id = post._id;
@@ -27,6 +32,9 @@ const appendPost = async (post: Post, element: HTMLDivElement) => {
     ? post.creator.profile
     : "profile-placeholder.png";
   profile.className = "post-header-user-profile";
+  profile.onclick = () => {
+    setUserView(post.creator);
+  };
   user.appendChild(profile);
 
   // Populate the user name
@@ -98,6 +106,7 @@ const searchSongs = async (
 
 // Handle to create a post
 const createPost = async (
+  setUserView: (userView: User) => void,
   token: string,
   post: PostInput,
   element: HTMLDivElement
@@ -107,7 +116,7 @@ const createPost = async (
     if (!resp) {
       console.log("post not created");
     } else {
-      appendPost(resp, element);
+      appendPost(setUserView, resp, element);
     }
   } catch (error) {
     console.log((error as Error).message);
@@ -115,12 +124,16 @@ const createPost = async (
 };
 
 // Handle get user posts
-const getUserPosts = async (creator: string, element: HTMLDivElement) => {
+const getUserPosts = async (
+  setUserView: (userView: User) => void,
+  creator: string,
+  element: HTMLDivElement
+) => {
   try {
     const resp = await postsUser(creator);
     if (resp.length > 0) {
       resp.forEach((post) => {
-        appendPost(post, element);
+        appendPost(setUserView, post, element);
       });
     }
   } catch (error) {
@@ -129,13 +142,17 @@ const getUserPosts = async (creator: string, element: HTMLDivElement) => {
 };
 
 // Handle get following posts
-const getFollowingPosts = async (token: string, element: HTMLDivElement) => {
+const getFollowingPosts = async (
+  setUserView: (userView: User) => void,
+  token: string,
+  element: HTMLDivElement
+) => {
   try {
     const resp = await postsFollowing(token);
-    
+
     if (resp.length > 0) {
       resp.forEach((post) => {
-        appendPost(post, element);
+        appendPost(setUserView, post, element);
       });
     }
   } catch (error) {

@@ -37,6 +37,7 @@
   height: 100%;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  cursor: pointer;
 }
 
 .post-header-user-name {

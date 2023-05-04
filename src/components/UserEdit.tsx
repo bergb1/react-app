@@ -45,14 +45,20 @@ const UserEdit = ({ userView }: Props) => {
       {pickedSong ? (
         <>
           <div className="form-group" id="formGroup">
-            <p id="favoriteSongInput" style={{ color: "#f3f3f3" }}>{pickedSong}</p>
+            <p id="favoriteSongInput" style={{ color: "#f3f3f3" }}>
+              {pickedSong}
+            </p>
           </div>
         </>
       ) : (
         <></>
       )}
       <p>Profile Color</p>
-      <select name="colors" id="changeProfileColor">
+      <select
+        name="colors"
+        id="changeProfileColor"
+        defaultValue={userView.profile_color}
+      >
         <option value="Tomato">Red</option>
         <option value="Orange">Orange</option>
         <option value="DodgerBlue">Blue</option>
