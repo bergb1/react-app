@@ -15,6 +15,7 @@ import {
 } from "./handles/UserViewHandles";
 import { CreateSong } from "./CreateSong";
 import { changeRole } from "./handles/ChangeRoleHandles";
+import { userPlaceholder } from "../Index";
 
 // Component properties
 interface Props {
@@ -199,6 +200,7 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
             ["admin", "root"].indexOf(role) > -1 && userView._id != user._id
               ? deleteUserByID(token, userView._id, setToken, user)
               : deleteUser(token, setToken);
+            setUserView(userPlaceholder);
           }}
         >
           <p id="user-delete-text">Delete Account</p>
