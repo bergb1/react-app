@@ -39,6 +39,7 @@ const PostsView = ({ token, user, userView, setUserView }: Props) => {
           }
           token={token}
           user={user}
+          setUserView={setUserView}
         />
       ) : (
         <></>

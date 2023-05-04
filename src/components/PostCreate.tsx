@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserWebsite } from "./interfaces/User";
+import { User, UserWebsite } from "./interfaces/User";
 import "./stylesheets/PostCreate.css";
 import "./stylesheets/UserView.css";
 import { createPost, searchSongs } from "./handles/PostsViewHandles";
@@ -10,10 +10,11 @@ interface Props {
   token: string;
   user: UserWebsite;
   outputElement: HTMLDivElement;
+  setUserView: (userView: User) => void;
 }
 
 // Component
-const PostCreate = ({ token, user, outputElement }: Props) => {
+const PostCreate = ({ token, user, outputElement, setUserView }: Props) => {
   const [pickedSong, setPickedSong] = useState("");
 
   return (
@@ -89,7 +90,7 @@ const PostCreate = ({ token, user, outputElement }: Props) => {
               ).value,
               song: pickedSong,
             };
-            createPost(token, post, outputElement);
+            createPost(setUserView, token, post, outputElement);
             (
               document.getElementById("messageInput") as HTMLTextAreaElement
             ).value = "";
