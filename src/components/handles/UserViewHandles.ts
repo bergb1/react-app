@@ -1,7 +1,7 @@
 import { Song, SongCreate } from "../interfaces/Song";
 import { User, UserModify, UserWebsite } from "../interfaces/User";
 import { followers, following } from "../request/followRequests";
-import { songCreate } from "../request/songRequests";
+import { songCreate, songsUser } from "../request/songRequests";
 import {
   userDelete,
   userDeleteByID,
@@ -10,7 +10,13 @@ import {
 } from "../request/userRequests";
 
 // Function to append a div with post information in an element
-const appendSong = async (song: Song, element: HTMLDivElement) => {
+const appendSong = async (
+  token: string,
+  user: UserWebsite,
+  role: string,
+  song: Song,
+  element: HTMLDivElement
+) => {
   // Create a song post
   const output = document.createElement("div");
   output.id = song._id;
@@ -23,17 +29,33 @@ const appendSong = async (song: Song, element: HTMLDivElement) => {
   header.className = "song-header";
   output.appendChild(header);
 
+  // Create header information
+  const songHeader = document.createElement("div");
+  songHeader.className = "song-header-information";
+  header.appendChild(songHeader);
+
   // Populate the header with the song profile
   const cover = document.createElement("img");
   cover.src = song.cover ? song.cover : "music-placeholder.png";
-  cover.className = "song-header-cover";
-  header.appendChild(cover);
+  cover.className = "song-header-information-cover";
+  songHeader.appendChild(cover);
 
   // Populate the header with the song name
   const name = document.createElement("p");
   name.innerHTML = song.name;
-  name.className = "song-header-name";
-  header.appendChild(name);
+  name.className = "song-header-information-name";
+  songHeader.appendChild(name);
+
+  // Create header options
+  const options = document.createElement("div");
+  options.className = "song-header-options";
+  header.appendChild(options);
+
+  // Add delete button
+  const deleteSong = document.createElement("p");
+  deleteSong.className = "song-header-options-delete";
+  deleteSong.innerHTML = "Delete";
+  options.appendChild(deleteSong);
 
   // Create a song body
   const body = document.createElement("div");
@@ -135,6 +157,8 @@ const setFollowingCount = async (
 // Creating a song in the database
 const createSong = async (
   token: string,
+  user: UserWebsite,
+  role: string,
   song: SongCreate,
   outputElement: HTMLDivElement
 ) => {
@@ -143,7 +167,28 @@ const createSong = async (
     if (!resp) {
       throw new Error("song not created");
     } else {
-      appendSong(resp, outputElement);
+      appendSong(token, user, role, resp, outputElement);
+    }
+  } catch (error) {
+    console.log((error as Error).message);
+  }
+};
+
+// Getting all songs of a user from the database
+const getUserSongs = async (
+  token: string,
+  user: UserWebsite,
+  role: string,
+  creator: string,
+  outputElement: HTMLDivElement
+) => {
+  try {
+    const resp = await songsUser(creator);
+    console.log(resp);
+    if (resp.length > 0) {
+      resp.forEach((song) => {
+        appendSong(token, user, role, song, outputElement);
+      });
     }
   } catch (error) {
     console.log((error as Error).message);
@@ -158,4 +203,5 @@ export {
   setFollowerCount,
   setFollowingCount,
   createSong,
+  getUserSongs,
 };

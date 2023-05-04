@@ -1,11 +1,3 @@
-.user-interface {
-  position: relative;
-  float: right;
-  width: 50%;
-  height: fit-content;
-  overflow: hidden;
-}
-
 .user-view {
   position: relative;
   height: fit-content;
@@ -182,24 +174,66 @@
   width: 100%;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   font-size: 17px;
-  padding: 5px;
+  overflow: hidden;
 }
 
-.song-header-cover {
+.song-header-information {
   position: relative;
   float: left;
   height: 100%;
-  border-radius: 50%;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
-  cursor: pointer;
+  width: 70%;
+  padding: 5px;
 }
 
-.song-header-name {
+.song-header-information-cover {
+  position: relative;
+  float: left;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+}
+
+.song-header-information-name {
   position: relative;
   float: left;
   top: 50%;
   margin-left: 10px;
   transform: translateY(-50%);
+  font-size: 14px;
+}
+
+.song-header-options {
+  position: relative;
+  float: right;
+  height: 100%;
+  width: 30%;
+  padding: 5px;
+  background-color: rgba(243, 243, 243, 0.25);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+
+}
+
+.song-header-options-delete {
+  position: relative;
+  float: right;
+  height: fit-content;
+  width: fit-content;
+  padding: 0px 2px;
+  border: 2px solid #191e29;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.song-header-options-delete:hover {
+  background-color: rgba(243, 243, 243, 0.25);
+}
+
+.song-header-options-delete:active {
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .song-body {

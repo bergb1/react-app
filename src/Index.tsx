@@ -5,6 +5,7 @@ import { User, UserWebsite } from "./components/interfaces/User";
 import UserView from "./components/UserView";
 import { searchUsers } from "./components/handles/IndexHandles";
 import PostsView from "./components/PostsView";
+import { getUserSongs } from "./components/handles/UserViewHandles";
 
 // Component Properties
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
   setToken: (page: string) => void;
   user: UserWebsite;
   setUser: (user: UserWebsite) => void;
+  role: string;
 }
 
 // User placeholder
@@ -23,7 +25,7 @@ const userPlaceholder: User = {
 };
 
 // Component
-const Index = ({ token, setToken, user, setUser }: Props) => {
+const Index = ({ token, setToken, user, setUser, role }: Props) => {
   // State hook for updating
   const [userView, setUserView] = useState(userPlaceholder);
   useEffect(() => {
@@ -40,25 +42,38 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
   }),
     [userView];
 
+  // Load in songs on user load
+  useEffect(() => {
+    if (userView._id) {
+      getUserSongs(
+        token,
+        user,
+        role,
+        userView._id,
+        document.getElementById("songs-list") as HTMLDivElement
+      );
+    }
+  }),
+    [userView];
+
   return (
     <>
       <Nav user={user} setUserView={setUserView} setToken={setToken} />
       <div className="body">
         {userView.username ? (
-          <UserView
-            setUserView={setUserView}
-            token={token}
-            setToken={setToken}
-            user={user}
-            userView={userView}
-          />
+          <div className="user-interface">
+            <UserView
+              setUserView={setUserView}
+              token={token}
+              setToken={setToken}
+              user={user}
+              userView={userView}
+            />
+            <div id="songs-list"></div>
+          </div>
         ) : (
           <div className="user-search">
-            <p
-              className="user-search-header"
-            >
-              Search for Users
-            </p>
+            <p className="user-search-header">Search for Users</p>
             <input
               type="text"
               className="user-search-input"
@@ -82,7 +97,12 @@ const Index = ({ token, setToken, user, setUser }: Props) => {
             <div className="search-result" id="searchResult" />
           </div>
         )}
-        <PostsView token={token} user={user} userView={userView} setUserView={setUserView} />
+        <PostsView
+          token={token}
+          user={user}
+          userView={userView}
+          setUserView={setUserView}
+        />
       </div>
     </>
   );

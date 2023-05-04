@@ -31,6 +31,36 @@ const songCreate = async (token: string, song: SongCreate): Promise<Song> => {
   );
 };
 
+// Request to get all of a user's songs
+const songsUser = async (creator: string): Promise<Song[]> => {
+  // Define the query
+  const query = `query SongsUser($creator: ID!) {
+    songsUser(creator: $creator) {
+      _id
+      cover
+      creator {
+        nickname
+        username
+        profile_color
+      }
+      description
+      name
+    }
+  }`;
+
+  // Define the query variable
+  const variables = {
+    creator: creator,
+  }
+
+  // Process the request
+  return await fetch(url, setupFetch(query, undefined, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).songsUser as Song[];
+    }
+  );
+}
+
 // Request to search for songs by name
 const songSearch = async (name: string): Promise<Song[]> => {
   // Define the query
@@ -54,4 +84,4 @@ const songSearch = async (name: string): Promise<Song[]> => {
   );
 };
 
-export { songCreate, songSearch };
+export { songCreate, songsUser, songSearch };

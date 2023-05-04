@@ -8,10 +8,11 @@ import "./stylesheets/UserView.css";
 interface Props {
   token: string;
   user: UserWebsite;
+  role: string;
 }
 
 // Component
-const CreateSong = ({ token, user }: Props) => {
+const CreateSong = ({ token, user, role }: Props) => {
   return (
     <div className="create-song">
       <div
@@ -54,6 +55,8 @@ const CreateSong = ({ token, user }: Props) => {
             };
             createSong(
               token,
+              user,
+              role,
               song,
               document.getElementById("songs-list") as HTMLDivElement
             );

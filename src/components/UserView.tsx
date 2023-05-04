@@ -67,7 +67,7 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
     [];
 
   return (
-    <div className="user-interface">
+    <>
       {/* User interface */}
       <div className="user-view">
         <div
@@ -211,12 +211,11 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
 
       {/* Creator Song Create Form */}
       {role === "creator" && user._id === userView._id ? (
-        <CreateSong token={token} user={user} />
+        <CreateSong token={token} user={user} role={role}/>
       ) : (
         <></>
       )}
-      <div id="songs-list"></div>
-    </div>
+    </>
   );
 };
 

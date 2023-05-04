@@ -4,6 +4,7 @@ import { userByToken } from "./components/request/userRequests";
 import { UserWebsite } from "./components/interfaces/User";
 import Index from "./Index";
 import { getCookie } from "./components/functions/cookies";
+import { getRole } from "./components/handles/UserOptionsHandles";
 
 // User placeholder
 const userPlaceholder: UserWebsite = {
@@ -17,6 +18,7 @@ const app = () => {
   // State hooks for updating
   const [token, setToken] = useState(getCookie("token"));
   const [user, setUser] = useState(userPlaceholder);
+  const [role, setRole] = useState("");
 
   // Effect hook for async features
   useEffect(() => {
@@ -27,6 +29,7 @@ const app = () => {
       if (!user) {
         setToken("");
       } else {
+        setRole(await getRole(token));
         setUser(user);
       }
     }
@@ -42,7 +45,7 @@ const app = () => {
   // Redirection
   return token ? (
     user.username ? (
-      <Index user={user} token={token} setToken={setToken} setUser={setUser}/>
+      <Index token={token} setToken={setToken} user={user} setUser={setUser} role={role} />
     ) : (
       <></>
     )
