@@ -5,10 +5,18 @@ import { handleFetch, setupFetch, url } from "./globals";
 const songCreate = async (token: string, song: SongCreate): Promise<Song> => {
   // Define the query
   const query = `mutation SongCreate($song: SongInput!) {
-      songCreate(song: $song) {
-        _id
+    songCreate(song: $song) {
+      _id
+      cover
+      creator {
+        nickname
+        username
+        profile_color
       }
-    }`;
+      description
+      name
+    }
+  }`;
 
   // Define the query variables
   const variables = {

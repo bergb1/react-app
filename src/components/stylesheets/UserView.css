@@ -164,3 +164,57 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+.song {
+  position: relative;
+  height: fit-content;
+  width: calc(80%);
+  margin: 20px 10% 20px 10%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  z-index: 9;
+}
+
+.song-header {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  font-size: 17px;
+  padding: 5px;
+}
+
+.song-header-cover {
+  position: relative;
+  float: left;
+  height: 100%;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  cursor: pointer;
+}
+
+.song-header-name {
+  position: relative;
+  float: left;
+  top: 50%;
+  margin-left: 10px;
+  transform: translateY(-50%);
+}
+
+.song-body {
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  padding: 5px;
+  margin: 0px;
+  background-color: #191e29;
+  color: #f3f3f3;
+}
+
+.song-body-description {
+  position: relative;
+  height: fit-content;
+  width: 100%;
+  margin: 0px;
+}

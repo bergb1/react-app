@@ -11,47 +11,62 @@ interface Props {
 }
 
 // Component
-const CreateSong = ({token, user}: Props) => {
+const CreateSong = ({ token, user }: Props) => {
   return (
     <div className="create-song">
-      <div className="create-song-header" style={{backgroundColor: user.profile_color}}>
+      <div
+        className="create-song-header"
+        style={{ backgroundColor: user.profile_color }}
+      >
         <p className="create-song-header-text">Create Song</p>
       </div>
       <div className="create-song-background">
-      <div className="user-view-big-spacing" />
-      <div className="form-group" id="formGroup">
-        <input
-          type="text"
-          className="form-control"
-          id="songNameInput"
-          placeholder="Enter Song Name"
-        />
-      </div>
-      <div className="user-view-small-spacing" />
-      <div className="form-group" id="formGroup">
-        <input
-          type="text"
-          className="form-control"
-          id="songDescInput"
-          placeholder="Enter Description"
-        />
-      </div>
-      <div className="user-view-big-spacing" />
-      <button
-        className="btn btn-primary"
-        id="create-song-button"
-        onClick={() => {
-          const song: SongCreate = {
-            name: (document.getElementById('songNameInput') as HTMLInputElement).value,
-            description: (document.getElementById('songDescInput') as HTMLInputElement).value,
-          };
-          createSong(token, song);
-          (document.getElementById('songNameInput') as HTMLInputElement).value = "";
-          (document.getElementById('songDescInput') as HTMLInputElement).value = "";
-        }}
-      >
-        Create Song
-      </button>
+        <div className="user-view-big-spacing" />
+        <div className="form-group" id="formGroup">
+          <input
+            type="text"
+            className="form-control"
+            id="songNameInput"
+            placeholder="Enter Song Name"
+          />
+        </div>
+        <div className="user-view-small-spacing" />
+        <div className="form-group" id="formGroup">
+          <input
+            type="text"
+            className="form-control"
+            id="songDescInput"
+            placeholder="Enter Description"
+          />
+        </div>
+        <div className="user-view-big-spacing" />
+        <button
+          className="btn btn-primary"
+          id="create-song-button"
+          onClick={() => {
+            const song: SongCreate = {
+              name: (
+                document.getElementById("songNameInput") as HTMLInputElement
+              ).value,
+              description: (
+                document.getElementById("songDescInput") as HTMLInputElement
+              ).value,
+            };
+            createSong(
+              token,
+              song,
+              document.getElementById("songs-list") as HTMLDivElement
+            );
+            (
+              document.getElementById("songNameInput") as HTMLInputElement
+            ).value = "";
+            (
+              document.getElementById("songDescInput") as HTMLInputElement
+            ).value = "";
+          }}
+        >
+          Create Song
+        </button>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import { SongCreate } from "../interfaces/Song";
+import { Song, SongCreate } from "../interfaces/Song";
 import { User, UserModify, UserWebsite } from "../interfaces/User";
 import { followers, following } from "../request/followRequests";
 import { songCreate } from "../request/songRequests";
@@ -8,6 +8,48 @@ import {
   userUpdate,
   userUpdateByID,
 } from "../request/userRequests";
+
+// Function to append a div with post information in an element
+const appendSong = async (song: Song, element: HTMLDivElement) => {
+  // Create a song post
+  const output = document.createElement("div");
+  output.id = song._id;
+  output.className = "song";
+  element.prepend(output);
+
+  // Create a header
+  const header = document.createElement("div");
+  header.style.backgroundColor = song.creator.profile_color;
+  header.className = "song-header";
+  output.appendChild(header);
+
+  // Populate the header with the song profile
+  const cover = document.createElement("img");
+  cover.src = song.cover ? song.cover : "music-placeholder.png";
+  cover.className = "song-header-cover";
+  header.appendChild(cover);
+
+  // Populate the header with the song name
+  const name = document.createElement("p");
+  name.innerHTML = song.name;
+  name.className = "song-header-name";
+  header.appendChild(name);
+
+  // Create a song body
+  const body = document.createElement("div");
+  body.className = "song-body";
+  output.appendChild(body);
+
+  // Add the song description
+  const description = document.createElement("p");
+  description.innerHTML = song.description
+    ? song.description
+    : `A song created by ${
+        song.creator.nickname ? song.creator.nickname : song.creator.username
+      }`;
+  description.className = "song-body-description";
+  body.appendChild(description);
+};
 
 // Update a user as themselves
 const update = async (
@@ -91,12 +133,29 @@ const setFollowingCount = async (
 };
 
 // Creating a song in the database
-const createSong = async (token: string, song: SongCreate) => {
+const createSong = async (
+  token: string,
+  song: SongCreate,
+  outputElement: HTMLDivElement
+) => {
   try {
-    return await songCreate(token, song);
+    const resp = await songCreate(token, song);
+    if (!resp) {
+      throw new Error("song not created");
+    } else {
+      appendSong(resp, outputElement);
+    }
   } catch (error) {
     console.log((error as Error).message);
   }
 };
 
-export { update, updateByID, deleteUser, deleteUserByID, setFollowerCount, setFollowingCount, createSong };
+export {
+  update,
+  updateByID,
+  deleteUser,
+  deleteUserByID,
+  setFollowerCount,
+  setFollowingCount,
+  createSong,
+};
