@@ -45,12 +45,14 @@ const Index = ({ token, setToken, user, setUser, role }: Props) => {
   // Load in songs on user load
   useEffect(() => {
     if (userView._id) {
+      let element = document.getElementById("songs-list") as HTMLDivElement;
+
       getUserSongs(
         token,
         user,
         role,
         userView._id,
-        document.getElementById("songs-list") as HTMLDivElement
+       element
       );
     }
   }),

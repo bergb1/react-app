@@ -69,13 +69,15 @@ const UserEdit = ({ user, userView, role }: Props) => {
         <option value="LightGray">Gray</option>
       </select>
 
-      <p>User Role</p>
       {["admin", "root"].indexOf(role) > -1 && user._id !== userView._id ? (
-        <select name="roles" id="changeRole" defaultValue={"user"}>
-          <option value="user">User</option>
-          <option value="creator">Creator</option>
-          {role === "root" ? <option value="admin">Admin</option> : <></>}
-        </select>
+        <>
+          <p>User Role</p>
+          <select name="roles" id="changeRole" defaultValue={"user"}>
+            <option value="user">User</option>
+            <option value="creator">Creator</option>
+            {role === "root" ? <option value="admin">Admin</option> : <></>}
+          </select>
+        </>
       ) : (
         <></>
       )}

@@ -200,6 +200,7 @@ const UserView = ({ token, setToken, user, userView, setUserView }: Props) => {
             ["admin", "root"].indexOf(role) > -1 && userView._id != user._id
               ? deleteUserByID(token, userView._id, setToken, user)
               : deleteUser(token, setToken);
+
             setUserView(userPlaceholder);
           }}
         >

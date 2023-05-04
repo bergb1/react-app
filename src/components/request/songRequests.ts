@@ -9,6 +9,7 @@ const songCreate = async (token: string, song: SongCreate): Promise<Song> => {
       _id
       cover
       creator {
+        _id
         nickname
         username
         profile_color
@@ -31,6 +32,26 @@ const songCreate = async (token: string, song: SongCreate): Promise<Song> => {
   );
 };
 
+// Request to delete a song
+const songDelete = async (token: string, _id: string): Promise<string> => {
+  // Define the query
+  const query = `mutation SongDelete($id: ID!) {
+    songDelete(_id: $id)
+  }`;
+
+  // Define variables
+  const variables = {
+    id: _id
+  }
+
+  // Process the request
+  return await fetch(url, setupFetch(query, token, variables)).then(
+    async (response) => {
+      return (await handleFetch(response)).songDelete as string;
+    }
+  );
+}
+
 // Request to get all of a user's songs
 const songsUser = async (creator: string): Promise<Song[]> => {
   // Define the query
@@ -39,6 +60,7 @@ const songsUser = async (creator: string): Promise<Song[]> => {
       _id
       cover
       creator {
+        _id
         nickname
         username
         profile_color
@@ -84,4 +106,4 @@ const songSearch = async (name: string): Promise<Song[]> => {
   );
 };
 
-export { songCreate, songsUser, songSearch };
+export { songCreate, songDelete, songsUser, songSearch };

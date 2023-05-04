@@ -13,6 +13,7 @@ const appendPost = async (
   const output = document.createElement("div");
   output.id = post._id;
   output.className = "post";
+  output.id = post.song._id;
   element.prepend(output);
 
   // Create a post header
@@ -109,14 +110,14 @@ const createPost = async (
   setUserView: (userView: User) => void,
   token: string,
   post: PostInput,
-  element: HTMLDivElement
+  outputElement: HTMLDivElement
 ) => {
   try {
     const resp = await postCreate(token, post);
     if (!resp) {
       console.log("post not created");
     } else {
-      appendPost(setUserView, resp, element);
+      appendPost(setUserView, resp, outputElement);
     }
   } catch (error) {
     console.log((error as Error).message);
@@ -127,13 +128,14 @@ const createPost = async (
 const getUserPosts = async (
   setUserView: (userView: User) => void,
   creator: string,
-  element: HTMLDivElement
+  outputElement: HTMLDivElement
 ) => {
   try {
     const resp = await postsUser(creator);
+    outputElement.innerHTML = "";
     if (resp.length > 0) {
       resp.forEach((post) => {
-        appendPost(setUserView, post, element);
+        appendPost(setUserView, post, outputElement);
       });
     }
   } catch (error) {
@@ -145,14 +147,14 @@ const getUserPosts = async (
 const getFollowingPosts = async (
   setUserView: (userView: User) => void,
   token: string,
-  element: HTMLDivElement
+  outputElement: HTMLDivElement
 ) => {
   try {
     const resp = await postsFollowing(token);
-
+    outputElement.innerHTML = "";
     if (resp.length > 0) {
       resp.forEach((post) => {
-        appendPost(setUserView, post, element);
+        appendPost(setUserView, post, outputElement);
       });
     }
   } catch (error) {

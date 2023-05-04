@@ -33,6 +33,7 @@ const postCreate = async (token: string, post: PostInput): Promise<Post> => {
       date
       message
       song {
+        _id
         cover
         name
       }
@@ -84,6 +85,7 @@ const postsUser = async (creator: string): Promise<Post[]> => {
       date
       message
       song {
+        _id
         cover
         name
       }
@@ -135,6 +137,7 @@ const postsFollowing = async (token: string): Promise<Post[]> => {
       date
       message
       song {
+        _id
         cover
         name
       }

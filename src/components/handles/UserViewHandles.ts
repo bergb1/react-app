@@ -1,7 +1,7 @@
 import { Song, SongCreate } from "../interfaces/Song";
 import { User, UserModify, UserWebsite } from "../interfaces/User";
 import { followers, following } from "../request/followRequests";
-import { songCreate, songsUser } from "../request/songRequests";
+import { songCreate, songDelete, songsUser } from "../request/songRequests";
 import {
   userDelete,
   userDeleteByID,
@@ -52,10 +52,23 @@ const appendSong = async (
   header.appendChild(options);
 
   // Add delete button
-  const deleteSong = document.createElement("p");
-  deleteSong.className = "song-header-options-delete";
-  deleteSong.innerHTML = "Delete";
-  options.appendChild(deleteSong);
+  if (["admin", "root"].indexOf(role) > -1 || user._id === song.creator._id) {
+    const deleteSong = document.createElement("p");
+    deleteSong.className = "song-header-options-delete";
+    deleteSong.innerHTML = "Delete";
+    deleteSong.onclick = () => {
+      songDelete(token, song._id);
+      output.remove();
+      try {
+        let element = document.getElementById(song._id);
+        while (element) {
+          element.remove();
+          element = document.getElementById(song._id);
+        }
+      } catch (error) {}
+    };
+    options.appendChild(deleteSong);
+  }
 
   // Create a song body
   const body = document.createElement("div");
@@ -184,7 +197,7 @@ const getUserSongs = async (
 ) => {
   try {
     const resp = await songsUser(creator);
-    console.log(resp);
+    outputElement.innerHTML = "";
     if (resp.length > 0) {
       resp.forEach((song) => {
         appendSong(token, user, role, song, outputElement);
